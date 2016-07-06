@@ -1,5 +1,5 @@
 /* Version 0.8.4 */
-var ajax_url = 'index';
+var ajax_url = '/';
 
 $.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
     $('#jstree').jstree({
