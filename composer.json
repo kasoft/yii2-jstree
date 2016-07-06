@@ -1,0 +1,21 @@
+{
+    "name": "kasoft/yii2-jstree",
+    "description": "jsTree is jquery plugin, that provides interactive trees",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nils Menrad",
+            "email": "nils@menrad.net"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "kasoft\\jstree\\": ""
+        }
+    }
+}
