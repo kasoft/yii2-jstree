@@ -5,6 +5,7 @@ namespace kasoft\jstree;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\bootstrap\Widget;
+use yii\base\View;
 use kasoft\jstree\JsTreeAsset;
 
 /**
@@ -44,7 +45,7 @@ class JsTree extends Widget
         
         if (empty($this->ajaxUrl))
             $this->ajaxUrl = "index";
-        $this->getView()->registerJs("var ajax_url = '".$this->ajaxUrl."';");
+        $this->getView()->registerJs("var ajax_url = '".$this->ajaxUrl."';",View::POS_HEAD);
         
         if (empty($this->modelPropertyName))
             $this->modelPropertyName = "name";
