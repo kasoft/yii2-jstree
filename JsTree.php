@@ -5,7 +5,7 @@ namespace kasoft\jstree;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\bootstrap\Widget;
-use backend\components\jstree\JsTreeAsset;
+use kasoft\jstree\JsTreeAsset;
 
 /**
  * JsTree widget is a Yii2 wrapper for the jsTree jQuery plugin.
