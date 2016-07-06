@@ -5,7 +5,7 @@ namespace kasoft\jstree;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\bootstrap\Widget;
-use yii\base\View;
+use yii\web\View;
 use kasoft\jstree\JsTreeAsset;
 
 /**
