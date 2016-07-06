@@ -43,7 +43,8 @@ class JsTree extends Widget
         $this->registerAssets();
         
         if (empty($this->ajaxUrl))
-            $this->ajaxUrl = "easytree";
+            $this->ajaxUrl = "index";
+        $this->getView()->registerJs("var ajax_url = '".$this->ajaxUrl."';");
         
         if (empty($this->modelPropertyName))
             $this->modelPropertyName = "name";
