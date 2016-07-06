@@ -24,6 +24,5 @@ class JsTreeBridgeAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
-        'kasoft\jstree\JsTreeAsset'
     ];
 }

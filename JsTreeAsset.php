@@ -23,5 +23,6 @@ class JsTreeAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
+        'kasoft\jstree\JsTreeAsset'
     ];
 }
