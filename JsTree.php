@@ -1,4 +1,11 @@
 <?php
+/**
+ * JsTree widget is a Yii2 wrapper for the jsTree jQuery plugin.
+ *
+ * @author Nils Menrad
+ * @since 1.0
+ * @see http://jstree.com
+ */
 
 namespace kasoft\jstree;
 
@@ -9,13 +16,7 @@ use yii\bootstrap\Widget;
 use yii\web\View;
 use kasoft\jstree\JsTreeAsset;
 
-/**
- * JsTree widget is a Yii2 wrapper for the jsTree jQuery plugin.
- *
- * @author Nils Menrad
- * @since 1.0
- * @see http://jstree.com
- */
+
 class JsTree extends Widget
 {
 
@@ -42,26 +43,12 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
      
-        //echo "<pre>";
-        //var_dump($this->getView());
-        //die();
-        
-        // $this->getView()->registerJs("var ajax_url = '".$this->ajaxUrl."';",View::POS_HEAD);
-        
         $this->controllerId = Yii::$app->controller->id;
         if (empty($this->baseAction))
            $this->baseAction = "index";
     
         $this->getView()->registerJs("var base_url = '".$this->controllerId."';",View::POS_HEAD);
         $this->getView()->registerJs("var base_action = '".$this->baseAction."';",View::POS_HEAD);
-        
-        /*
-         * https://github.com/yiisoft/yii2/issues/305
-         * $config['token'] = 1234
-         * 
-            $this->registerJs("var Yii = ". json_encode($config).";",View::POS_HEAD);
-         */
-        
         
         if (empty($this->modelPropertyName))
             $this->modelPropertyName = "name";
@@ -213,7 +200,5 @@ class JsTree extends Widget
         header("Pragma: no-cache");
         echo json_encode($json);
     }
-    
-
 }
 ?>

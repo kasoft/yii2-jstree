@@ -9,10 +9,6 @@ namespace kasoft\jstree;
 
 use yii\web\AssetBundle;
 
-/**
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
- */
 class JsTreeBridgeAsset extends AssetBundle
 {
     public $sourcePath = '@vendor/kasoft/yii2-jstree/assets';

@@ -1,17 +1,15 @@
-<?php /**
+<?php 
+/**
  * @link http://www.studio255.de/
- * @copyright Copyright (c) 2016 Nils Menrad
- * @license http://www.yiiframework.com/license/
+ * @author Nils Menrad
+ * @since 1.0
+ * @see http://jstree.com
  */
+
 
 namespace kasoft\jstree;
-
 use yii\web\AssetBundle;
 
-/**
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
- */
 class JsTreeAsset extends AssetBundle
 {
     public $sourcePath = '@bower/jstree';

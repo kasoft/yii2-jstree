@@ -1,4 +1,4 @@
-/* Version 0.8.4 */
+/* Version 0.9 */
 
 $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata) {
     $('#jstree').jstree({
