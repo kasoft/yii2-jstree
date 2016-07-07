@@ -2,6 +2,7 @@
 
 namespace kasoft\jstree;
 
+use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\bootstrap\Widget;
