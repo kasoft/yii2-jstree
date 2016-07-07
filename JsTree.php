@@ -43,7 +43,7 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
      
-        var_dump($this->getView());
+        var_dump($this->getView()->id);
         die();
         
         if (empty($this->ajaxUrl))
