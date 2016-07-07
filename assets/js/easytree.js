@@ -1,6 +1,6 @@
 /* Version 0.8.4 */
 
-$.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
+$.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata) {
     $('#jstree').jstree({
         "core": {
             "animation": 0,
@@ -54,7 +54,7 @@ $.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
                         "action": function (data) {
                             var inst = $.jstree.reference(data.reference);
                             obj = inst.get_node(data.reference);
-                            location.href = ajax_url +'update?id=' + obj.id.replace("id", "");
+                            location.href = base_url +'/update?id=' + obj.id.replace("id", "");
                             console.log(obj);
                         }
                     },
@@ -110,7 +110,7 @@ $.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
                                     async: false,
                                     type: 'POST',
                                     dataType: "json",
-                                    url: ajax_url,
+                                    url: base_url,
                                     data: {
                                         "easytree": "delete",
                                         "id": obj.id.replace("id", ""),
@@ -141,7 +141,7 @@ $.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
             async: false,
             type: 'POST',
             dataType: "json",
-            url: ajax_url,
+            url: base_url,
             data: {
                 "easytree": "move",
                 "id": data.node.id.replace("id", ""),
@@ -159,7 +159,7 @@ $.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
         $.ajax({
             async: false,
             type: 'POST',
-            url: ajax_url,
+            url: base_url,
             dataType: "json",
             data: {
                 "easytree": "create",
@@ -183,7 +183,7 @@ $.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
             async: false,
             type: 'POST',
             dataType: "json",
-            url: ajax_url,
+            url: base_url,
             data: {
                 "easytree": "rename",
                 "id": data.node.id.replace("id", ""),

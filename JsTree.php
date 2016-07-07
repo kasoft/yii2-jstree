@@ -30,10 +30,8 @@ class JsTree extends Widget
     public $modelStandardName;      // String for a new Node if not entered by the user
     public $modelPropertyOnline;    // Boolean for Online/Offlien = Italic non Italic Text
     
-    
-    // Not fully implemented
-    // relative url to controller action
-    public $ajaxUrl;                
+    public $controllerId;           // controller id for ajax call "cms"
+    public $baseAction;             // Base Action for tree "index"
  
     public $modelCondition;         // not implementes yet, additionl conditions
     public $modelAddCondition;      // not implementes yet, additionl conditions
@@ -44,14 +42,18 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
      
-        echo Yii::$app->controller->id;
-        echo "<pre>";
-        var_dump($this->getView());
-        die();
+        //echo "<pre>";
+        //var_dump($this->getView());
+        //die();
         
-        if (empty($this->ajaxUrl))
-            $this->ajaxUrl = "index";
-        $this->getView()->registerJs("var ajax_url = '".$this->ajaxUrl."';",View::POS_HEAD);
+        // $this->getView()->registerJs("var ajax_url = '".$this->ajaxUrl."';",View::POS_HEAD);
+        
+        $this->controllerId = Yii::$app->controller->id;
+        if (empty($this->baseAction))
+           $this->baseAction = "index";
+    
+        $this->getView()->registerJs("var base_url = '".$this->controllerId."';",View::POS_HEAD);
+        $this->getView()->registerJs("var base_action = '".$this->baseAction."';",View::POS_HEAD);
         
         /*
          * https://github.com/yiisoft/yii2/issues/305
