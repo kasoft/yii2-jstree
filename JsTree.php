@@ -43,6 +43,7 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
      
+        echo Yii::$app->controller->id;
         echo "<pre>";
         var_dump($this->getView());
         die();
