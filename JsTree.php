@@ -42,10 +42,21 @@ class JsTree extends Widget
     public function init() {
         parent::init();
         $this->registerAssets();
+     
+        var_dump($this->getView());
+        die();
         
         if (empty($this->ajaxUrl))
             $this->ajaxUrl = "index";
         $this->getView()->registerJs("var ajax_url = '".$this->ajaxUrl."';",View::POS_HEAD);
+        
+        /*
+         * https://github.com/yiisoft/yii2/issues/305
+         * $config['token'] = 1234
+         * 
+            $this->registerJs("var Yii = ". json_encode($config).";",View::POS_HEAD);
+         */
+        
         
         if (empty($this->modelPropertyName))
             $this->modelPropertyName = "name";

@@ -54,7 +54,7 @@ $.getJSON(ajax_url + "?easytree=fulljson", function (jsdata) {
                         "action": function (data) {
                             var inst = $.jstree.reference(data.reference);
                             obj = inst.get_node(data.reference);
-                            location.href = 'update?id=' + obj.id.replace("id", "");
+                            location.href = ajax_url +'update?id=' + obj.id.replace("id", "");
                             console.log(obj);
                         }
                     },
