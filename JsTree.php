@@ -190,7 +190,7 @@ class JsTree extends Widget
             }
             
             //if tree entry id is top id, set parent to null
-            if ($item->{$this->modelPropertyParentId} == $this->modelPropertyParentId) $parent="#";
+            if ($item->{$this->modelPropertyParentId} == $this->modelFirstParentId) $parent="#";
             else $parent = "id".$item->{$this->modelPropertyParentId};
                     
             $data[] = ['id'=>"id".$item->{$this->modelPropertyId},'parent'=> $parent,'type'=>$item->{$this->modelPropertyType},'text'=> $name];
