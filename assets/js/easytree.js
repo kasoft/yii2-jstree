@@ -1,6 +1,6 @@
 /* Version 0.9 */
 
-$.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata) {
+$.getJSON("/".base_url + "/" + base_action + "?easytree=fulljson", function (jsdata) {
     $('#jstree').jstree({
         "core": {
             "animation": 0,
