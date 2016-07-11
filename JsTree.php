@@ -48,7 +48,7 @@ class JsTree extends Widget
         if (empty($this->baseAction))
            $this->baseAction = "index";
         
-        if (empty($this->showIcons))
+        if (!isset($this->showIcons))
             $this->showIcons = true;
     
         $this->getView()->registerJs("var controller = '".$this->controllerId."';",View::POS_HEAD);
