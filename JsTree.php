@@ -182,11 +182,18 @@ class JsTree extends Widget
         foreach($models as $item) {
             // $name = preg_replace('/[^-\w\d .,äöüÖÄÜß]/', "", $item->{$this->modelPropertyName});
             $name= $item->{$this->modelPropertyName};
-            if ($this->modelPropertyOnline) {
-                if (!$item->{$this->modelPropertyOnline})
-                    $name= "<i>(offline) ".$item->{$this->modelPropertyName}."</i>";
-            } 
-            $data[] = ['id'=>"id".$item->{$this->modelPropertyId},'parent'=>($item->{$this->modelPropertyParentId})?"id".$item->{$this->modelPropertyParentId}:"#",'type'=>$item->{$this->modelPropertyType},'text'=> $name];
+            if (isset($this->modelPropertyOnline)) {
+                if ($this->modelPropertyOnline) {
+                    if (!$item->{$this->modelPropertyOnline})
+                        $name= "<i>(offline) ".$item->{$this->modelPropertyName}."</i>";
+                } 
+            }
+            
+            //if tree entry id is top id, set parent to null
+            if ($item->{$this->modelPropertyParentId} == $this->modelPropertyParentId) $parent="#";
+            else $parent = "id".$item->{$this->modelPropertyParentId};
+                    
+            $data[] = ['id'=>"id".$item->{$this->modelPropertyId},'parent'=> $parent,'type'=>$item->{$this->modelPropertyType},'text'=> $name];
             $mixin = self::treeChildren($modelName, $item->{$this->modelPropertyId});
             if (!empty($mixin)) $data = array_merge($data,$mixin);
         }
