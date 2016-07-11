@@ -40,7 +40,6 @@ name            Name or Titel to Display in in the tree
 parent_id       Id for nesting the tree
 position        For sorting the tree items
 type            Type of the Item, used for Icon and right as far as implemented
-online          online/offline switsch for items to show
 
 The Filednames can be configured as shown below. Just copy this code in 
 your Controller 
@@ -58,7 +57,6 @@ public function actionIndex() {
             'modelFirstParentId' => NULL,                   // ID for the Tree to start
             'modelPropertyName' => 'name',                  // Fieldname to show
             'modelPropertyParentId' => 'parentId',          // Parent ID for tree items
-            'modelPropertyOnline' => 'online',              // Online/Offline Field
             'modelPropertyPosition' => 'position',          // for sorting items
         ]);
         
@@ -67,7 +65,7 @@ public function actionIndex() {
             Yii::$app->end();
         }
         
-        return $this->render('index',['tree'=>$tree]);
+        return $this->render('index');
         
     }
 
