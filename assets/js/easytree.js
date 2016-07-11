@@ -6,7 +6,10 @@ $.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
         "core": {
             "animation": 0,
             "check_callback": true,
-            "themes": {"stripes": true},
+            "themes": {
+                "stripes": true,
+                "icons": show_icons
+            },
             'data': jsdata
         },
         "types": {

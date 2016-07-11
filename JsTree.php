@@ -30,9 +30,11 @@ class JsTree extends Widget
     public $modelPropertyType;      // Column Name of the Position attribute e. g. 'position'
     public $modelStandardName;      // String for a new Node if not entered by the user
     
+    // JS Vars
     public $controllerId;           // controller id for ajax call "cms"
     public $baseAction;             // Base Action for tree "index"
- 
+    public $showIcons;              // Show Type/Icons in Tree
+    
     public $modelCondition;         // not implementes yet, additionl conditions
     public $modelAddCondition;      // not implementes yet, additionl conditions
     /**
@@ -45,9 +47,13 @@ class JsTree extends Widget
         $this->controllerId = Yii::$app->controller->id;
         if (empty($this->baseAction))
            $this->baseAction = "index";
+        
+        if (empty($this->showIcons))
+            $this->showIcons = true;
     
         $this->getView()->registerJs("var controller = '".$this->controllerId."';",View::POS_HEAD);
         $this->getView()->registerJs("var index_action = '".$this->baseAction."';",View::POS_HEAD);
+        $this->getView()->registerJs("var show_icons = '".$this->showIcons."';",View::POS_HEAD);
         
         if (empty($this->modelPropertyName))
             $this->modelPropertyName = "name";
@@ -66,6 +72,9 @@ class JsTree extends Widget
         
         if (empty($this->modelStandardName))
             $this->modelStandardName="Neuer Eintrag";
+        
+        
+        
     }
 
     
