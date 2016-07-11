@@ -50,27 +50,28 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                 return {
                     "Edit": {
                         "label": "Bearbeiten",
-                        "icon" : "fa fa-pencil",
+                        "icon": "fa fa-pencil",
                         "action": function (data) {
                             var inst = $.jstree.reference(data.reference);
                             obj = inst.get_node(data.reference);
+                            // tbd
+                            // allow both methods: ajax load und href link
                             // location.href = base_url +'/update?id=' + obj.id.replace("id", "");
                             $.ajax({
                                 type: "GET",
-                                url: base_url +'/update?id=' + obj.id.replace("id", ""),
-                                //data: "id=" + a_href,
-                                success: function(data, textStatus) {
-                                    $(".result").html(data);    
+                                url: base_url + '/update?id=' + obj.id.replace("id", ""),
+                                success: function (data, textStatus) {
+                                    $(".result").html(data);
                                 },
-                                error: function() {
-                                    alert('Not OKay');
+                                error: function () {
+                                    alert('Error loading Page!');
                                 }
                             })
                         }
                     },
                     "Create_menue": {
                         "label": "Neu",
-                        "icon" : "glyphicon glyphicon-th-list",
+                        "icon": "glyphicon glyphicon-th-list",
                         "action": function (data) {
                             var ref = $.jstree.reference(data.reference);
                             sel = ref.get_selected();
@@ -86,7 +87,7 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                     },
                     "Rename": {
                         "label": "Umbenennen",
-                        "icon" : "fa fa-refresh",
+                        "icon": "fa fa-refresh",
                         "action": function (data) {
                             var inst = $.jstree.reference(data.reference);
                             obj = inst.get_node(data.reference);
@@ -95,7 +96,7 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                     },
                     "Delete": {
                         "label": "Löschen",
-                        "icon" : "fa fa-trash",
+                        "icon": "fa fa-trash",
                         "action": function (data) {
                             if (confirm("Sind Sie sicher?")) {
                                 var inst = $.jstree.reference(data.reference);
@@ -112,13 +113,12 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                                     success: function (r) {
                                         if (r.status) {
                                             var ref = $.jstree.reference(data.reference);
-                                                      sel = ref.get_selected();
+                                            sel = ref.get_selected();
                                             if (!sel.length) {
                                                 return false;
                                             }
                                             ref.delete_node(sel);
-                                        }
-                                        else {
+                                        } else {
                                             alert(r.error);
                                             return false;
                                         }
@@ -165,8 +165,7 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
             success: function (r) {
                 if (r.status) {
                     data.instance.set_id(data.node.id, r.id)
-                }
-                else {
+                } else {
                     // rollback v3 ??
                     // $.jstree.rollback(data.rlbk);
                 }
@@ -190,6 +189,18 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                 }
             }
         });
+    }).on("select_node.jstree", function (e, data) {
+        $.ajax({
+            type: "GET",
+            url: base_url + '/update?id=' + data.node.id.replace("id", ""),
+            success: function (data, textStatus) {
+                $(".result").html(data);
+            },
+            error: function () {
+                alert('Error loading Page!');
+            }
+        })
+
     });
 });
 
