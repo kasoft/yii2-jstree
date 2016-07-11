@@ -29,7 +29,6 @@ class JsTree extends Widget
     public $modelPropertyPosition;  // Column Name of the Position attribute e. g. 'position'
     public $modelPropertyType;      // Column Name of the Position attribute e. g. 'position'
     public $modelStandardName;      // String for a new Node if not entered by the user
-    public $modelPropertyOnline;    // Boolean for Online/Offlien = Italic non Italic Text
     
     public $controllerId;           // controller id for ajax call "cms"
     public $baseAction;             // Base Action for tree "index"
@@ -64,11 +63,6 @@ class JsTree extends Widget
         
         if (empty($this->modelPropertyType))
             $this->modelPropertyType="type";
-        
-        if (empty($this->modelPropertyOnline))
-            $this->modelPropertyOnline="online";
-        else 
-            $this->modelPropertyOnline=NULL;
         
         if (empty($this->modelStandardName))
             $this->modelStandardName="Neuer Eintrag";
@@ -182,12 +176,7 @@ class JsTree extends Widget
         foreach($models as $item) {
             // $name = preg_replace('/[^-\w\d .,äöüÖÄÜß]/', "", $item->{$this->modelPropertyName});
             $name= $item->{$this->modelPropertyName};
-            if (isset($this->modelPropertyOnline)) {
-                if ($this->modelPropertyOnline) {
-                    if (!$item->{$this->modelPropertyOnline})
-                        $name= "<i>(offline) ".$item->{$this->modelPropertyName}."</i>";
-                } 
-            }
+             
             
             //if tree entry id is top id, set parent to null
             if ($item->{$this->modelPropertyParentId} == $this->modelFirstParentId) $parent="#";

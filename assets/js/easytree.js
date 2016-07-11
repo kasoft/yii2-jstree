@@ -11,7 +11,7 @@ $.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
         },
         "types": {
             "#": {
-                "max_children": 1,
+                "max_children": -1,
                 "max_depth": -1,
                 "valid_children": -1, // "valid_children": ["root","xyz","folder"]
                 "icon": "glyphicon glyphicon-th-list"
@@ -24,18 +24,6 @@ $.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
             },
             "link": {
                 "icon": "glyphicon glyphicon-log-in",
-                "max_children": 0,
-            },
-            "blogabstract": {
-                "icon": "glyphicon glyphicon-comment",
-                "max_children": 0,
-            },
-            "blogmainpage": {
-                "icon": "glyphicon glyphicon-question-sign",
-                "max_children": 0,
-            },
-            "abstract": {
-                "icon": "glyphicon glyphicon-menu-hamburger",
                 "max_children": 0,
             },
             "default": {
