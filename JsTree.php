@@ -47,8 +47,8 @@ class JsTree extends Widget
         if (empty($this->baseAction))
            $this->baseAction = "index";
     
-        $this->getView()->registerJs("var base_url = '".$this->controllerId."';",View::POS_HEAD);
-        $this->getView()->registerJs("var base_action = '".$this->baseAction."';",View::POS_HEAD);
+        $this->getView()->registerJs("var controller = '".$this->controllerId."';",View::POS_HEAD);
+        $this->getView()->registerJs("var index_action = '".$this->baseAction."';",View::POS_HEAD);
         
         if (empty($this->modelPropertyName))
             $this->modelPropertyName = "name";
@@ -77,7 +77,6 @@ class JsTree extends Widget
     
     public function run() {
         parent::run();
-        echo '<div id="jstree"></div>';
     }
     
     /**

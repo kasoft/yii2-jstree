@@ -1,6 +1,7 @@
 /* Version 0.9 */
 
-$.getJSON("/" + base_url + "/" + base_action + "?easytree=fulljson", function (jsdata) {
+var base_url = "/" + controller + "/";
+$.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
     $('#jstree').jstree({
         "core": {
             "animation": 0,
@@ -192,7 +193,7 @@ $.getJSON("/" + base_url + "/" + base_action + "?easytree=fulljson", function (j
     }).on("select_node.jstree", function (e, data) {
         $.ajax({
             type: "GET",
-            url: 'update?id=' + data.node.id.replace("id", ""),
+            url: base_url+'update?id=' + data.node.id.replace("id", ""),
             success: function (data, textStatus) {
                 $(".result").html(data);
             },
