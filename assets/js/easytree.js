@@ -55,11 +55,21 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                             var inst = $.jstree.reference(data.reference);
                             obj = inst.get_node(data.reference);
                             location.href = base_url +'/update?id=' + obj.id.replace("id", "");
-                            console.log(obj);
+                            $.ajax({
+                                type: "POST",
+                                url: base_url +'/update' ,
+                                data: "id=" + + obj.id.replace("id", ""),
+                                success: function(data, textStatus) {
+                                    $(".result").html(data);    
+                                },
+                                error: function() {
+                                    alert('Not OKay');
+                                }
+                            });
                         }
                     },
                     "Create_menue": {
-                        "label": "Neues Menü",
+                        "label": "Neu",
                         "icon" : "glyphicon glyphicon-th-list",
                         "action": function (data) {
                             var ref = $.jstree.reference(data.reference);
@@ -69,22 +79,6 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                             }
                             sel = sel[0];
                             sel = ref.create_node(sel, {"type": "menue"});
-                            if (sel) {
-                                ref.edit(sel);
-                            }
-                        }
-                    },
-                    "Create_page": {
-                        "label": "Neue Seite",
-                        "icon" : "glyphicon glyphicon-file",
-                        "action": function (data) {
-                            var ref = $.jstree.reference(data.reference);
-                            sel = ref.get_selected();
-                            if (!sel.length) {
-                                return false;
-                            }
-                            sel = sel[0];
-                            sel = ref.create_node(sel, {"type": "page"});
                             if (sel) {
                                 ref.edit(sel);
                             }
