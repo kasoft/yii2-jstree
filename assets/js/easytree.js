@@ -54,7 +54,7 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                         "action": function (data) {
                             var inst = $.jstree.reference(data.reference);
                             obj = inst.get_node(data.reference);
-                            location.href = base_url +'/update?id=' + obj.id.replace("id", "");
+                            //location.href = base_url +'/update?id=' + obj.id.replace("id", "");
                             $.ajax({
                                 type: "POST",
                                 url: base_url +'/update' ,
