@@ -77,6 +77,7 @@ class JsTree extends Widget
     
     public function run() {
         parent::run();
+        echo '<div id="jstree"></div>';
     }
     
     /**
