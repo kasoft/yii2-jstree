@@ -54,18 +54,18 @@ $.getJSON(base_url + "/" + base_action + "?easytree=fulljson", function (jsdata)
                         "action": function (data) {
                             var inst = $.jstree.reference(data.reference);
                             obj = inst.get_node(data.reference);
-                            //location.href = base_url +'/update?id=' + obj.id.replace("id", "");
+                            // location.href = base_url +'/update?id=' + obj.id.replace("id", "");
                             $.ajax({
-                                type: "POST",
-                                url: base_url +'/update' ,
-                                data: "id=" + + obj.id.replace("id", ""),
+                                type: "GET",
+                                url: base_url +'/update?id=' + obj.id.replace("id", ""),
+                                //data: "id=" + a_href,
                                 success: function(data, textStatus) {
                                     $(".result").html(data);    
                                 },
                                 error: function() {
                                     alert('Not OKay');
                                 }
-                            });
+                            })
                         }
                     },
                     "Create_menue": {
