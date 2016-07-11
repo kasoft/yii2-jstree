@@ -192,7 +192,7 @@ $.getJSON("/" + base_url + "/" + base_action + "?easytree=fulljson", function (j
     }).on("select_node.jstree", function (e, data) {
         $.ajax({
             type: "GET",
-            url: base_url + '/update?id=' + data.node.id.replace("id", ""),
+            url: 'update?id=' + data.node.id.replace("id", ""),
             success: function (data, textStatus) {
                 $(".result").html(data);
             },
