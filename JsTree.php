@@ -21,14 +21,14 @@ class JsTree extends Widget
 {
 
     // Basic Settings Model/Column Names
-    public $modelName;              // Name of the Model as String
-    public $modelFirstParentId;     // Start the Tree with this parent_id, can be NULL
-    public $modelPropertyId;        // Column Name of the Primary Key e.g. 'id'
-    public $modelPropertyParentId;  // Column Name of the Parent Key e.g. 'parent_id'
-    public $modelPropertyName;      // Column Name of the Title/Name e.g. 'title'
-    public $modelPropertyPosition;  // Column Name of the Position attribute e. g. 'position'
-    public $modelPropertyType;      // Column Name of the Position attribute e. g. 'position'
-    public $modelStandardName;      // String for a new Node if not entered by the user
+    public $modelName;                  // Name of the Model as String
+    public $modelFirstParentId;         // Start the Tree with this parent_id, can be NULL
+    public $modelPropertyId;            // Column Name of the Primary Key e.g. 'id'
+    public $modelPropertyParentId;      // Column Name of the Parent Key e.g. 'parent_id'
+    public $modelPropertyName;          // Column Name of the Title/Name e.g. 'title'
+    public $modelPropertyPosition;      // Column Name of the Position attribute e. g. 'position'
+    public $modelPropertyType=NULL;     // Column Name of the Position attribute e. g. 'position'
+    public $modelStandardName;          // String for a new Node if not entered by the user
     
     // JS Vars
     public $controllerId;           // controller id for ajax call "cms"
@@ -66,9 +66,6 @@ class JsTree extends Widget
         
         if (empty($this->modelPropertyPosition))
             $this->modelPropertyPosition="sort";
-        
-        if (empty($this->modelPropertyType))
-            $this->modelPropertyType="type";
         
         if (empty($this->modelStandardName))
             $this->modelStandardName="Neuer Eintrag";
@@ -134,7 +131,7 @@ class JsTree extends Widget
                 $model = new $modelName;
                 $model->{$this->modelPropertyParentId} = $_POST["parent"];
                 $model->{$this->modelPropertyPosition} = $_POST["position"];
-                $model->{$this->modelPropertyType} = $_POST["type"];
+                if ($this->modelPropertyType) $model->{$this->modelPropertyType} = $_POST["type"];
                 $model->{$this->modelPropertyName} = $this->modelStandardName;
                 
                 if ($model->save())
@@ -190,8 +187,13 @@ class JsTree extends Widget
             //if tree entry id is top id, set parent to null
             if ($item->{$this->modelPropertyParentId} == $this->modelFirstParentId) $parent="#";
             else $parent = "id".$item->{$this->modelPropertyParentId};
+            
+            if ($this->modelPropertyType)
+                $type = $item->{$this->modelPropertyType};
+            else
+                $type = "default";    
                     
-            $data[] = ['id'=>"id".$item->{$this->modelPropertyId},'parent'=> $parent,'type'=>$item->{$this->modelPropertyType},'text'=> $name];
+            $data[] = ['id'=>"id".$item->{$this->modelPropertyId},'parent'=> $parent,'type'=>$type,'text'=> $name];
             $mixin = self::treeChildren($modelName, $item->{$this->modelPropertyId});
             if (!empty($mixin)) $data = array_merge($data,$mixin);
         }
