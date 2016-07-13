@@ -182,7 +182,6 @@ $.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
             }
         });
     }).on("select_node.jstree", function (e, data) {
-        $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Moment bitte ...</p></div>');
         $.ajax({
             type: "GET",
             url: base_url+'update?id=' + data.node.id.replace("id", ""),
