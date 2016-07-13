@@ -189,7 +189,7 @@ $.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
                 $(".jstree-result").html(data);
             },
             error: function () {
-                alert('Error loading Page!');
+                // alert('Error loading Page!');
             }
         })
 
