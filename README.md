@@ -69,12 +69,11 @@ public function actionIndex() {
         
     }
 
- ?>```
+ ?>
 
 
 Put this in the index view file
-```php
 <div id="jstree"></div>
-```
+<div class="result"></div>
 
 
