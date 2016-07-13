@@ -186,7 +186,7 @@ $.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
             type: "GET",
             url: base_url+'update?id=' + data.node.id.replace("id", ""),
             success: function (data, textStatus) {
-                $(".result").html(data);
+                $(".jstree-result").html(data);
             },
             error: function () {
                 alert('Error loading Page!');
