@@ -4,8 +4,12 @@
 if (typeof jsonurl === 'undefined') {
     // the variable is defined
     var base_url = "/" + controller + "/";
-    var tree_fulljson = base_url + index_action + "?easytree=fulljson";
+    var jsonurl = base_url + index_action + "?easytree=fulljson";
 } 
+
+if (typeof show_icons === 'undefined') {
+    var show_icons = false;
+}
 
 $.getJSON(jsonurl, function (jsdata) {
     $('#jstree').jstree({
