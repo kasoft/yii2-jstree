@@ -51,6 +51,12 @@ class JsTree extends Widget
     
     public $modelCondition;         // not implementes yet, additionl conditions
     public $modelAddCondition;      // not implementes yet, additionl conditions
+    
+    
+    
+    
+    
+    
     /**
      * @inheritdoc
      */
