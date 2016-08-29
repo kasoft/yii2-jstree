@@ -1,7 +1,13 @@
 /* Version 0.9 */
 
-var base_url = "/" + controller + "/";
-$.getJSON(base_url + index_action + "?easytree=fulljson", function (jsdata) {
+
+if (typeof jsonurl === 'undefined') {
+    // the variable is defined
+    var base_url = "/" + controller + "/";
+    var tree_fulljson = base_url + index_action + "?easytree=fulljson";
+} 
+
+$.getJSON(jsonurl, function (jsdata) {
     $('#jstree').jstree({
         "core": {
             "animation": 0,

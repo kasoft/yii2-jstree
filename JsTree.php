@@ -1,6 +1,7 @@
 <?php
 /**
- * JsTree widget is a Yii2 wrapper for the jsTree jQuery plugin.
+ * JsTree widget is a Yii2 wrapper for the jsTree jQuery plugin with extended
+ * functions.
  *
  * @author Nils Menrad
  * @since 1.0
@@ -21,7 +22,20 @@ class JsTree extends Widget
 {
 
     // Basic Settings Model/Column Names
-    public $modelName;                  // Name of the Model as String
+    
+    /*
+     * @var object the yii2 active record model which should be used. set to false
+     * if the tree should be build from a json url. note: only with a model, the 
+     * move, delete, sort, and create functions can be used
+     */
+    public $modelName = false;
+    
+    /*
+     * @var string URL that will generate the needed json for buildung the tree. 
+     * Only needed when you don't set the modelName Property. Otherwise not needed.
+     */
+    public $jsonUrl = false;
+    
     public $modelFirstParentId;         // Start the Tree with this parent_id, can be NULL
     public $modelPropertyId;            // Column Name of the Primary Key e.g. 'id'
     public $modelPropertyParentId;      // Column Name of the Parent Key e.g. 'parent_id'
@@ -44,33 +58,39 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
      
-        $this->controllerId = Yii::$app->controller->id;
-        if (empty($this->baseAction))
-           $this->baseAction = "index";
+        if ($this->modelName) {
         
-        if (!isset($this->showIcons))
-            $this->showIcons = true;
-    
-        $this->getView()->registerJs("var controller = '".$this->controllerId."';",View::POS_HEAD);
-        $this->getView()->registerJs("var index_action = '".$this->baseAction."';",View::POS_HEAD);
-        $this->getView()->registerJs("var show_icons = '".$this->showIcons."';",View::POS_HEAD);
+            $this->controllerId = Yii::$app->controller->id;
+            if (empty($this->baseAction))
+               $this->baseAction = "index";
+
+            if (!isset($this->showIcons))
+                $this->showIcons = true;
+
+            $this->getView()->registerJs("var controller = '".$this->controllerId."';",View::POS_HEAD);
+            $this->getView()->registerJs("var index_action = '".$this->baseAction."';",View::POS_HEAD);
+            $this->getView()->registerJs("var show_icons = '".$this->showIcons."';",View::POS_HEAD);
+
+            if (empty($this->modelPropertyName))
+                $this->modelPropertyName = "name";
+
+            if (empty($this->modelPropertyId))
+                $this->modelPropertyId = "id";
+
+            if (empty($this->modelPropertyParentId))
+                $this->modelPropertyParentId="parent_id";
+
+            if (empty($this->modelPropertyPosition))
+                $this->modelPropertyPosition="sort";
+
+            if (empty($this->modelStandardName))
+                $this->modelStandardName="Neuer Eintrag";
         
-        if (empty($this->modelPropertyName))
-            $this->modelPropertyName = "name";
-        
-        if (empty($this->modelPropertyId))
-            $this->modelPropertyId = "id";
-        
-        if (empty($this->modelPropertyParentId))
-            $this->modelPropertyParentId="parent_id";
-        
-        if (empty($this->modelPropertyPosition))
-            $this->modelPropertyPosition="sort";
-        
-        if (empty($this->modelStandardName))
-            $this->modelStandardName="Neuer Eintrag";
-        
-        
+        } else {
+            
+            $this->getView()->registerJs("var jsonurl = '".$this->jsonUrl."';",View::POS_HEAD);
+            
+        }
         
     }
 
