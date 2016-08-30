@@ -256,9 +256,12 @@ if (typeof jsonurl === 'undefined') {
                 },
                 'data': jsdata
             },
+            "checkbox": {
+                "keep_selected_style" : false
+            },
             "plugins": [
                 "contextmenu", "dnd", "search",
-                "state", "types", "wholerow", "changed"
+                "state", "types", "wholerow", "changed", "checkbox"
             ]
         })
     });
