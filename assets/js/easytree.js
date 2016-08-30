@@ -255,7 +255,8 @@ if (typeof jsonurl === 'undefined') {
                 'data': jsdata
             },
             "checkbox": {
-                "keep_selected_style" : false
+                // "keep_selected_style" : false,
+                "three_state": false,
             },
             "plugins": [
                 "contextmenu", "dnd", "search",
@@ -263,5 +264,18 @@ if (typeof jsonurl === 'undefined') {
             ]
         })
     });
+
+
+    $(document).on('submit','#jstree-form',function(event){
+
+        var checked_ids = [];
+        $('#jstree').jstree("get_checked", null, true).each(function () {
+            checked_ids.push(this.id);
+        });
+        //setting to hidden field
+        document.getElementById('#jstree-checkboxes').value = checked_ids.join(",");
+
+    });
+
 
 }
