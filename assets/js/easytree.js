@@ -201,9 +201,51 @@ if (typeof jsonurl === 'undefined') {
         });
     });
 
+
+    /************* TREE ACTION ******************/
+
+    /* Submitting Form Content should be send to .jstree-result div */
+    $(document).on('submit', 'form.jstree-form', function (event) {
+        $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
+        $.ajax({// create an AJAX call...
+            data: $(this).serialize(), // get the form data
+            type: $(this).attr('method'), // GET or POST
+            url: $(this).attr('action'), // the file to call
+            success: function (response) { // on success..
+                $('.jstree-result').html(response); // update the DIV
+                // $(".jstree-result").removeClass("jstree-result-loader");
+                // $(this).parent().remove();
+            }
+        });
+        return false; // cancel original event to prevent form submitting
+    });
+
+    /* Buttons or Links in Tree Form should load in result div */
+    $(document).on('click', '.jstree-button', function (event) {
+        $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('href'),
+            success: function (response) {
+                $('.jstree-result').html(response);
+            }
+        });
+        return false; // stop the browser following the link
+    });
+
+    /* Tree click Preloader */
+    /* Every klick on a treeitem load the update in resonse div*/
+    $(document).ready(function () {
+        $('#jstree').on("select_node.jstree", function (e, data) {
+            $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Lade Daten ...</p></div>');
+        });
+    });
+
+
+
 // JSON ONLY VERSION
 } else {
-    
+
     $.getJSON(jsonurl, function (jsdata) {
         $('#jstree').jstree({
             "core": {
