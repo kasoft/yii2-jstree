@@ -254,21 +254,12 @@ if (typeof jsonurl === 'undefined') {
                 },
                 'data': jsdata
             },
-            "types": {
-                "disabled": {
-                    "select_node": false,
-                    "open_node":   false,
-                    "close_node":  false,
-                    "create_node": false,
-                    "delete_node": false
-                },
-            },
             "checkbox": {
-                // "keep_selected_style" : false,
+                "keep_selected_style" : false,
                 "three_state": false,
             },
             "plugins": [
-                "state", "types", "wholerow", "changed", "checkbox"
+                "types", "wholerow", "changed", "checkbox"
             ]
         })
     });
