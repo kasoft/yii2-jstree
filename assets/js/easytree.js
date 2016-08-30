@@ -241,8 +241,6 @@ if (typeof jsonurl === 'undefined') {
         });
     });
 
-
-
 // JSON ONLY VERSION
 } else {
 
