@@ -259,10 +259,20 @@ if (typeof jsonurl === 'undefined') {
                 "three_state": false,
             },
             "plugins": [
-                "contextmenu", "dnd", "search",
                 "state", "types", "wholerow", "changed", "checkbox"
             ]
         })
+    });
+    
+    $(document).on('submit','form',function(event){
+        var selectedElmsIds = $('#jstree').jstree("get_selected");
+        console.log(selectedElmsIds);
+        $('<input>').attr({
+            type: 'hidden',
+            id: 'jstree-checkboxes',
+            name: 'jstree-checkboxes',
+            value: selectedElmsIds.join()
+        }).appendTo('form');
     });
 
 
