@@ -36,6 +36,13 @@ class JsTree extends Widget
      */
     public $jsonUrl = false;
     
+    /*
+     * @var string ID oder Class of the JsTree Div
+     * If not set, it will become #jstree
+     */
+    public $jsTree = "#jstree";
+    
+    
     public $modelFirstParentId;         // Start the Tree with this parent_id, can be NULL
     public $modelPropertyId;            // Column Name of the Primary Key e.g. 'id'
     public $modelPropertyParentId;      // Column Name of the Parent Key e.g. 'parent_id'
@@ -64,6 +71,8 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
      
+        $this->getView()->registerJs("var jstree = '".$this->jsTree."';",View::POS_HEAD);
+        
         if ($this->modelName) {
         
             $this->controllerId = Yii::$app->controller->id;

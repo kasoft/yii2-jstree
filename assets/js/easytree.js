@@ -192,6 +192,9 @@ if (typeof jsonurl === 'undefined') {
                 url: base_url + 'update?id=' + data.node.id.replace("id", ""),
                 success: function (data, textStatus) {
                     $(".jstree-result").html(data);
+                    if (typeof afterLoad === "function") {
+                        afterLoad();
+                    }
                 },
                 error: function () {
                     // alert('Error loading Page!');
@@ -259,7 +262,7 @@ if (typeof jsonurl === 'undefined') {
                 "three_state": false,
             },
             "plugins": [
-                "types", "wholerow", "changed", "checkbox"
+                "types", "wholerow", "checkbox"
             ]
         })
     });
