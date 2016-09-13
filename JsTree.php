@@ -85,6 +85,7 @@ class JsTree extends Widget
      */
     public $baseAction;
     
+    public $jstreeIcons;
     public $jstreeType;
     public $jstreePlugins;
     /*
@@ -114,6 +115,9 @@ class JsTree extends Widget
         if (empty($this->jstreeDiv)) 
             $this->jstreeDiv  = "#jstree";
         
+        if (empty($this->jstreeIcons)) 
+            $this->jstreeIcons  = true;
+        
         if (empty($this->jstreePlugins)) {
             $this->jstreePlugins = [
                 "contextmenu", "dnd", "search","state", "types", "wholerow", "changed"
@@ -137,6 +141,7 @@ class JsTree extends Widget
         $this->getView()->registerJs("var jstreediv = '" . $this->jstreeDiv . "';", View::POS_HEAD);
         $this->getView()->registerJs("var jstreetype = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeplugins = " . Json::encode($this->jstreePlugins) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var jstreeicons = " . Json::encode($this->jstreeIcons) . ";", View::POS_HEAD);
 
         // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {
