@@ -85,7 +85,7 @@ class JsTree extends Widget
      */
     public $baseAction;
     
-    public $jstreeIcons;
+    public $jstreeIcons=NULL;
     public $jstreeType;
     public $jstreePlugins;
     /*
@@ -115,7 +115,7 @@ class JsTree extends Widget
         if (($this->jstreeDiv)) 
             $this->jstreeDiv  = "#jstree";
         
-        if (!isset($this->jstreeIcons))
+        if ($this->jstreeIcons===NULL)
             $this->jstreeIcons = true;
         
         if (empty($this->jstreePlugins)) {
