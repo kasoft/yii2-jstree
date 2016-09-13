@@ -17,7 +17,6 @@ use yii\helpers\Json;
 use yii\bootstrap\Widget;
 use yii\web\View;
 use kasoft\jstree\JsTreeAsset;
-use yii\helpers\Json;
 
 class JsTree extends Widget
 {
