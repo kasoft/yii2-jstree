@@ -115,12 +115,8 @@ class JsTree extends Widget
         if (($this->jstreeDiv)) 
             $this->jstreeDiv  = "#jstree";
         
-        var_dump($this->jstreeIcons);
-        
         if ($this->jstreeIcons===NULL)
             $this->jstreeIcons = true;
-        
-        var_dump($this->jstreeIcons);
         
         if (empty($this->jstreePlugins)) {
             $this->jstreePlugins = [
@@ -159,7 +155,6 @@ class JsTree extends Widget
 
             $this->getView()->registerJs("var controller = '" . $this->controllerId . "';", View::POS_HEAD);
             $this->getView()->registerJs("var index_action = '" . $this->baseAction . "';", View::POS_HEAD);
-            $this->getView()->registerJs("var show_icons = '" . $this->showIcons . "';", View::POS_HEAD);
 
             if (empty($this->modelPropertyName))
                 $this->modelPropertyName = "name";
