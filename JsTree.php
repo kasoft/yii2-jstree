@@ -142,7 +142,7 @@ class JsTree extends Widget
             if (empty($this->modelStandardName))
                 $this->modelStandardName = "Neuer Eintrag";
             
-            if (empty($this->typeData)) {
+            /* if (empty($this->typeData)) {
                 $this->typeData = [
                     "#" => [
                         "max_children" => -1,
@@ -154,7 +154,7 @@ class JsTree extends Widget
                         "icon" => "glyphicon glyphicon-log-in"
                     ]
                 ];
-            }
+            } */
             
            
             
