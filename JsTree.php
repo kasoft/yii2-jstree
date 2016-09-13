@@ -90,7 +90,6 @@ class JsTree extends Widget
      * @var Base Action for tree "index"
      */
     public $baseAction;
-    public $typeData;
 
     /**
      * @var array Configure which plugins will be active on an instance. Should be an array of strings, where each element is a plugin name.
