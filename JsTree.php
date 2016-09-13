@@ -91,18 +91,13 @@ class JsTree extends Widget
      */
     public $baseAction;
     
-    public $eintrag;
+    public $jstreeType;
 
     /**
      * @var array Configure which plugins will be active on an instance. Should be an array of strings, where each element is a plugin name.
      */
     public $plugins = ["checkbox"];
 
-    /**
-     * @var array Stores all defaults for the types plugin
-     */
-    public $typeData;
-    
     // NOT IMPLEMENTED, DEVEPOLMENT
     public $showIcons;              // Show Type/Icons in Tree
     public $modelCondition;         // not implementes yet, additionl conditions
@@ -116,7 +111,7 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
         $this->getView()->registerJs("var div_tree = '" . $this->jsTree . "';", View::POS_HEAD);
-        $this->getView()->registerJs("var typedata = " . Json::encode($this->typeData) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var typedata = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
 
         // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {
