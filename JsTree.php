@@ -115,8 +115,12 @@ class JsTree extends Widget
         if (($this->jstreeDiv)) 
             $this->jstreeDiv  = "#jstree";
         
+        var_dump($this->jstreeIcons);
+        
         if ($this->jstreeIcons===NULL)
             $this->jstreeIcons = true;
+        
+        var_dump($this->jstreeIcons);
         
         if (empty($this->jstreePlugins)) {
             $this->jstreePlugins = [
