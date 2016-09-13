@@ -92,6 +92,15 @@ class JsTree extends Widget
      */
     public $baseAction;
     
+    public $typeData = [
+        "#" => [
+            "max_children" => -1,
+            "max_depth" => -1,
+            "valid_children" => -1, // "valid_children": ["root","xyz","folder"]
+            "icon" => "glyphicon glyphicon-th-list"
+        ]
+    ];
+    
     
     // NOT IMPLEMENTED, DEVEPOLMENT
     public $showIcons;              // Show Type/Icons in Tree
@@ -107,6 +116,7 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
         $this->getView()->registerJs("var div_tree = '".$this->jsTree."';",View::POS_HEAD);
+        $this->getView()->registerJs("var typedata = ".json_encode($this->typeData,JSON_HEX_TAG).";",View::POS_HEAD);
         
         // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {

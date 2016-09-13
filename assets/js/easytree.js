@@ -5,6 +5,7 @@ if (typeof jsonurl === 'undefined') {
     // the variable is defined
     var base_url = "/" + controller + "/";
     var jsonurl = base_url + index_action + "?easytree=fulljson";
+    console.log(typedata);
 
     $.getJSON(jsonurl, function (jsdata) {
         $(div_tree).jstree({
