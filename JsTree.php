@@ -99,7 +99,7 @@ class JsTree extends Widget
     /**
      * @var array Stores all defaults for the types plugin
      */
-    public $typeData = [];
+    public $typeData;
     
     // NOT IMPLEMENTED, DEVEPOLMENT
     public $showIcons;              // Show Type/Icons in Tree
@@ -145,6 +145,22 @@ class JsTree extends Widget
             if (empty($this->modelStandardName))
                 $this->modelStandardName = "Neuer Eintrag";
             
+            if (empty($this->typeData)) {
+                $this->typeData = [
+                    "#" => [
+                        "max_children" => -1,
+                        "max_depth" => -1,
+                        "valid_children" => -1, // "valid_children": ["root","xyz","folder"]
+                        "icon" => "glyphicon glyphicon-th-list"
+                    ],
+                    "pageonline" => [
+                        "max_children" => -1,
+                        "max_depth" => -1,
+                        "valid_children" => -1, // "valid_children": ["root","xyz","folder"]
+                        "icon" => "glyphicon glyphicon-log-in"
+                    ]
+                ];
+            }
             
             $config = [
                 // 'core' => array_merge(['data' => $this->data], $this->core),
