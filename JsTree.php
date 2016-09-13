@@ -112,7 +112,7 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
         
-        if (($this->jstreeDiv)) 
+        if (empty($this->jstreeDiv)) 
             $this->jstreeDiv  = "#jstree";
         
         if ($this->jstreeIcons===NULL)
