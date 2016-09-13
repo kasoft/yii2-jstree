@@ -154,9 +154,6 @@ class JsTree extends Widget
                         "icon" => "glyphicon glyphicon-th-list"
                     ],
                     "pageonline" => [
-                        "max_children" => -1,
-                        "max_depth" => -1,
-                        "valid_children" => -1, // "valid_children": ["root","xyz","folder"]
                         "icon" => "glyphicon glyphicon-log-in"
                     ]
                 ];
