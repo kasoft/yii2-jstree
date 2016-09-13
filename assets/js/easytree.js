@@ -18,7 +18,7 @@ if (typeof jsonurl === 'undefined') {
                 },
                 'data': jsdata
             },
-            "types": {
+            "types": typedata/* {
                 "#": {
                     "max_children": -1,
                     "max_depth": -1,
@@ -38,7 +38,7 @@ if (typeof jsonurl === 'undefined') {
                 "default": {
                     "icon": "glyphicon glyphicon-question-sign",
                 }
-            },
+            }*/,
             "plugins": [
                 "contextmenu", "dnd", "search",
                 "state", "types", "wholerow", "changed"
