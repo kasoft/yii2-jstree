@@ -92,14 +92,7 @@ class JsTree extends Widget
      */
     public $baseAction;
     
-    public $typeData = [
-        "#" => [
-            "max_children" => -1,
-            "max_depth" => -1,
-            "valid_children" => -1, // "valid_children": ["root","xyz","folder"]
-            "icon" => "glyphicon glyphicon-th-list"
-        ]
-    ];
+    public $typeData;
     
     
     // NOT IMPLEMENTED, DEVEPOLMENT
