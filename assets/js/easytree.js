@@ -7,7 +7,7 @@ if (typeof jsonurl === 'undefined') {
     var jsonurl = base_url + index_action + "?easytree=fulljson";
 
     $.getJSON(jsonurl, function (jsdata) {
-        $(div_tree).jstree({
+        $(jstreediv).jstree({
             "core": {
                 "animation": 0,
                 "check_callback": true,
@@ -214,7 +214,7 @@ if (typeof jsonurl === 'undefined') {
     /* Tree click Preloader */
     /* Every klick on a treeitem load the update in resonse div*/
     $(document).ready(function () {
-        $(div_tree).on("select_node.jstree", function (e, data) {
+        $(jstreediv).on("select_node.jstree", function (e, data) {
             $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Lade Daten ...</p></div>');
         });
     });
@@ -223,7 +223,7 @@ if (typeof jsonurl === 'undefined') {
 } else {
 
     $.getJSON(jsonurl, function (jsdata) {
-        $(div_tree).jstree({
+        $(jstreediv).jstree({
             "core": {
                 "animation": 0,
                 "check_callback": true,
@@ -243,7 +243,7 @@ if (typeof jsonurl === 'undefined') {
     });
     
     $(document).on('submit','form',function(event){
-        var selectedElmsIds = $(div_tree).jstree("get_selected");
+        var selectedElmsIds = $(jstreediv).jstree("get_selected");
         console.log(selectedElmsIds);
         $('<input>').attr({
             type: 'hidden',

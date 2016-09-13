@@ -37,12 +37,6 @@ class JsTree extends Widget
     public $jsonUrl = false;
 
     /*
-     * @var string ID oder Class of the JsTree Div
-     * If not set, it will become #jstree
-     */
-    public $jsTree = "#jstree";
-
-    /*
      * @var int ID where the Tree should start loading stuff, can be NULL too 
      */
     public $modelFirstParentId;
@@ -93,6 +87,11 @@ class JsTree extends Widget
     
     public $jstreeType;
     public $jstreePlugins;
+    /*
+     * @var string ID oder Class of the JsTree Div
+     * If not set, it will become #jstree
+     */
+    public $jstreeDiv;
 
     /**
      * @var array Configure which plugins will be active on an instance. Should be an array of strings, where each element is a plugin name.
@@ -112,14 +111,30 @@ class JsTree extends Widget
         parent::init();
         $this->registerAssets();
         
+        if (empty($this->jstreeDiv)) 
+            $this->jstreeDiv  = "#jstree";
+        
         if (empty($this->jstreePlugins)) {
             $this->jstreePlugins = [
-                "contextmenu", "dnd", "search",
-                "state", "types", "wholerow", "changed"
+                "contextmenu", "dnd", "search","state", "types", "wholerow", "changed"
             ];
         }
         
-        $this->getView()->registerJs("var div_tree = '" . $this->jsTree . "';", View::POS_HEAD);
+        if (empty($this->jstreeType)) {
+            $this->jstreeType = [
+                "#" => [
+                    "max_children" => -1,
+                    "max_depth" => -1,
+                    "valid_children" => -1, 
+                    "icon" => "glyphicon glyphicon-th-list"
+                ],
+                "default" => [
+                    "icon" => "glyphicon glyphicon-question-sign"
+                ],
+            ];
+        }
+        
+        $this->getView()->registerJs("var jstreediv = '" . $this->jstreeDiv . "';", View::POS_HEAD);
         $this->getView()->registerJs("var jstreetype = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeplugins = " . Json::encode($this->jstreePlugins) . ";", View::POS_HEAD);
 
