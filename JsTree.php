@@ -92,6 +92,7 @@ class JsTree extends Widget
     public $baseAction;
     
     public $jstreeType;
+    public $jstreePlugins;
 
     /**
      * @var array Configure which plugins will be active on an instance. Should be an array of strings, where each element is a plugin name.
@@ -110,8 +111,17 @@ class JsTree extends Widget
     public function init() {
         parent::init();
         $this->registerAssets();
+        
+        if (empty($this->jstreePlugins)) {
+            $this->jstreePlugins = [
+                "contextmenu", "dnd", "search",
+                "state", "types", "wholerow", "changed"
+            ];
+        }
+        
         $this->getView()->registerJs("var div_tree = '" . $this->jsTree . "';", View::POS_HEAD);
-        $this->getView()->registerJs("var typedata = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var jstreetype = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var jstreeplugins = " . Json::encode($this->jstreePlugins) . ";", View::POS_HEAD);
 
         // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {

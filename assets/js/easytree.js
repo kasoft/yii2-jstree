@@ -17,31 +17,8 @@ if (typeof jsonurl === 'undefined') {
                 },
                 'data': jsdata
             },
-            "types": typedata/* {
-                "#": {
-                    "max_children": -1,
-                    "max_depth": -1,
-                    "valid_children": -1, // "valid_children": ["root","xyz","folder"]
-                    "icon": "glyphicon glyphicon-th-list"
-                },
-                "page": {
-                    "icon": "glyphicon glyphicon-file",
-                },
-                "menue": {
-                    "icon": "glyphicon glyphicon-th-list",
-                },
-                "link": {
-                    "icon": "glyphicon glyphicon-log-in",
-                    "max_children": 0,
-                },
-                "default": {
-                    "icon": "glyphicon glyphicon-question-sign",
-                }
-            }*/,
-            "plugins": [
-                "contextmenu", "dnd", "search",
-                "state", "types", "wholerow", "changed"
-            ],
+            "types": jstreetype,
+            "plugins": jstreeplugins,
             "contextmenu": {
                 "items": function () {
                     return {
