@@ -100,10 +100,8 @@ class JsTree extends Widget
     /**
      * @var array Stores all defaults for the types plugin
      */
-    public $types = [
-        '#' => [],
-        'default' => [],
-    ];
+    public $typeData;
+    
     // NOT IMPLEMENTED, DEVEPOLMENT
     public $showIcons;              // Show Type/Icons in Tree
     public $modelCondition;         // not implementes yet, additionl conditions
