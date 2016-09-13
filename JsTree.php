@@ -162,11 +162,7 @@ class JsTree extends Widget
                 ];
             }
             
-            $config = [
-                // 'core' => array_merge(['data' => $this->data], $this->core),
-                'plugins' => $this->plugins,
-                'types' => $this->types
-            ];
+           
             
 
             // Only Display Tree with loading Data via JSON URL    
