@@ -13,7 +13,7 @@ if (typeof jsonurl === 'undefined') {
                 "check_callback": true,
                 "themes": {
                     "stripes": true,
-                    "icons": true
+                    "icons": false
                 },
                 'data': jsdata
             },
