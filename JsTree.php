@@ -32,7 +32,7 @@ class JsTree extends Widget
     
     /*
      * @var string URL that will generate the needed json for buildung the tree. 
-     * Only needed when you don't set the modelName Property. Otherwise not needed.
+     * Only needed when you DON'T set the modelName Property. Otherwise not needed.
      */
     public $jsonUrl = false;
     
@@ -42,25 +42,61 @@ class JsTree extends Widget
      */
     public $jsTree = "#jstree";
     
+    /*
+     * @var int ID where the Tree should start loading stuff, can be NULL too 
+     */
+    public $modelFirstParentId;        
     
-    public $modelFirstParentId;         // Start the Tree with this parent_id, can be NULL
-    public $modelPropertyId;            // Column Name of the Primary Key e.g. 'id'
-    public $modelPropertyParentId;      // Column Name of the Parent Key e.g. 'parent_id'
-    public $modelPropertyName;          // Column Name of the Title/Name e.g. 'title'
-    public $modelPropertyPosition;      // Column Name of the Position attribute e. g. 'position'
+    /*
+     * @var string Name of the PrimaryKey Column e.g. 'id'
+     */
+    public $modelPropertyId;            
+    
+    /*
+     * @var string Column Name of the Parent Key e.g. 'parent_id'
+     */
+    public $modelPropertyParentId;
+    
+    /*
+     * @var string Column Name of the Title/Name e.g. 'title'
+     */
+    public $modelPropertyName;
+    
+    /*
+     * @var string Column Name of the Position attribute e. g. 'position'
+     */
+    public $modelPropertyPosition; 
+    
+    /*
+     * @var string Column Name for a Type attribute. This can be used to give each
+     * Tree item a different Type which will be used for displaying icons and can 
+     * be also used to set allwoed/disallowed functions (child creation, new nodes, etc.)
+     * This is not implemented at the Moment! 
+     */
     public $modelPropertyType=NULL;     // Column Name of the Position attribute e. g. 'position'
+    
+    /*
+     * @var string Text for the initial name of a new node. As a new node will be craeted
+     * first as a blank entry, this text will be set. Standard will be used if empty 
+     */
     public $modelStandardName;          // String for a new Node if not entered by the user
     
     // JS Vars
+    /*
+     * @var string Name of the Controller internally used for calling ajax actions.
+     */
     public $controllerId;           // controller id for ajax call "cms"
-    public $baseAction;             // Base Action for tree "index"
-    public $showIcons;              // Show Type/Icons in Tree
     
+    /*
+     * @var Base Action for tree "index"
+     */
+    public $baseAction;
+    
+    
+    // NOT IMPLEMENTED, DEVEPOLMENT
+    public $showIcons;              // Show Type/Icons in Tree
     public $modelCondition;         // not implementes yet, additionl conditions
     public $modelAddCondition;      // not implementes yet, additionl conditions
-    
-    
-    
     
     
     
@@ -70,9 +106,9 @@ class JsTree extends Widget
     public function init() {
         parent::init();
         $this->registerAssets();
-     
-        $this->getView()->registerJs("var jstree = '".$this->jsTree."';",View::POS_HEAD);
+        $this->getView()->registerJs("var div_tree = '".$this->jsTree."';",View::POS_HEAD);
         
+        // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {
         
             $this->controllerId = Yii::$app->controller->id;
@@ -101,14 +137,12 @@ class JsTree extends Widget
             if (empty($this->modelStandardName))
                 $this->modelStandardName="Neuer Eintrag";
         
+        // Only Display Tree with loading Data via JSON URL    
         } else {
-            
             $this->getView()->registerJs("var jsonurl = '".$this->jsonUrl."';",View::POS_HEAD);
-            
         }
         
     }
-
     
     public function run() {
         parent::run();
@@ -120,12 +154,19 @@ class JsTree extends Widget
     public function registerAssets() {
         $view = $this->getView();
         JsTreeAsset::register($view);
-
     }
 
     // AJAX call for 
     // -> load: return full json for tree init
     // -> move: change parent id and position of node
+    /*
+     * Handelns Ajax calls of different Operations
+     * fulljson: return full json for tree init
+     * create: create new node
+     * rename: change the name of the node
+     * position: move the node, change parent id and position of node
+     * delete: delete node
+     */
     public function treeaction() {
         if (isset($_REQUEST["easytree"])) {
             $operation = $_REQUEST["easytree"];
@@ -190,16 +231,16 @@ class JsTree extends Widget
                     $modelName = $this->modelName;
                     $model = $modelName::findOne($_POST["id"]);
                     if (!$model) {
-                        self::sendJSON(array('status' => 0,'error'=>'Eintrag existiert nicht!'));    
+                        self::sendJSON(array('status' => 0,'error'=>'Item does not exist!'));    
                     } else {
                        if ($model->delete()) {
                            self::sendJSON(array('status' => 1));
                         } else {
-                            self::sendJSON(array('status' => 0,'error'=>'Eintrag konnten nicht gelöscht werden!'));
+                            self::sendJSON(array('status' => 0,'error'=>'Item cannot be deleted!'));
                         }
                     }
                 } else {
-                    self::sendJSON(array('status' => 0,'error'=>'Eintrag enthält Unterobjekte und kann nicht gelöscht werden!'));
+                    self::sendJSON(array('status' => 0,'error'=>'Item has children and cannot be deleted! Delete first all children.'));
                 }
             }
         } else {
@@ -207,6 +248,9 @@ class JsTree extends Widget
         }
     }
     
+    /*
+     * Load Childitems of tree
+     */
     public function treeChildren($modelName,$parent_id=NULL) {
         $models = $modelName::find()
                 ->where([$this->modelPropertyParentId => $parent_id])
@@ -215,10 +259,8 @@ class JsTree extends Widget
         
         $data = [];
         foreach($models as $item) {
-            // $name = preg_replace('/[^-\w\d .,äöüÖÄÜß]/', "", $item->{$this->modelPropertyName});
             $name= $item->{$this->modelPropertyName};
              
-            
             //if tree entry id is top id, set parent to null
             if ($item->{$this->modelPropertyParentId} == $this->modelFirstParentId) $parent="#";
             else $parent = "id".$item->{$this->modelPropertyParentId};

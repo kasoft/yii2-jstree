@@ -7,7 +7,7 @@ if (typeof jsonurl === 'undefined') {
     var jsonurl = base_url + index_action + "?easytree=fulljson";
 
     $.getJSON(jsonurl, function (jsdata) {
-        $('#jstree').jstree({
+        $(div_tree).jstree({
             "core": {
                 "animation": 0,
                 "check_callback": true,
@@ -210,14 +210,12 @@ if (typeof jsonurl === 'undefined') {
     /* Submitting Form Content should be send to .jstree-result div */
     $(document).on('submit', 'form.jstree-form', function (event) {
         $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
-        $.ajax({// create an AJAX call...
+        $.ajax({
             data: $(this).serialize(), // get the form data
             type: $(this).attr('method'), // GET or POST
             url: $(this).attr('action'), // the file to call
             success: function (response) { // on success..
                 $('.jstree-result').html(response); // update the DIV
-                // $(".jstree-result").removeClass("jstree-result-loader");
-                // $(this).parent().remove();
             }
         });
         return false; // cancel original event to prevent form submitting
@@ -239,7 +237,7 @@ if (typeof jsonurl === 'undefined') {
     /* Tree click Preloader */
     /* Every klick on a treeitem load the update in resonse div*/
     $(document).ready(function () {
-        $('#jstree').on("select_node.jstree", function (e, data) {
+        $(div_tree).on("select_node.jstree", function (e, data) {
             $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Lade Daten ...</p></div>');
         });
     });
@@ -248,7 +246,7 @@ if (typeof jsonurl === 'undefined') {
 } else {
 
     $.getJSON(jsonurl, function (jsdata) {
-        $('#jstree').jstree({
+        $(div_tree).jstree({
             "core": {
                 "animation": 0,
                 "check_callback": true,
@@ -268,7 +266,7 @@ if (typeof jsonurl === 'undefined') {
     });
     
     $(document).on('submit','form',function(event){
-        var selectedElmsIds = $('#jstree').jstree("get_selected");
+        var selectedElmsIds = $(div_tree).jstree("get_selected");
         console.log(selectedElmsIds);
         $('<input>').attr({
             type: 'hidden',
@@ -277,7 +275,5 @@ if (typeof jsonurl === 'undefined') {
             value: selectedElmsIds.join()
         }).appendTo('form');
     });
-
-
 
 }

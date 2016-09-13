@@ -6,7 +6,6 @@
  * @see http://jstree.com
  */
 
-
 namespace kasoft\jstree;
 use yii\web\AssetBundle;
 

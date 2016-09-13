@@ -34,12 +34,33 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-You need some fileds in your Database to allow all the Extension to work.
+This Extension can be use in 2 Ways. 
+
+1. The simple Version just displays the tree with a provided json url. You have 
+to take care of the json part and all other tree operations by yourself. In this
+case just set 'jsonUrl'
+
+a) Add this to your Controller action
+$tree = new \kasoft\jstree\JsTree([
+    'jsonUrl' => $url,
+]);
+
+b) add a div with <div id="jstree"></div> to your view
+
+---
+
+2. Together with a Database (tested with MySQL) and a set of Fields to order and
+structure the tree. The Tree is displayed in a DIV. The Extensions handels create,
+move, rename and delete for you. A click on a Tree Item will dipslay the form to
+edith data in another div. See the Test Setup. You have to adjust your Controllers
+and views!
+
+Set up you Database with the needed fileds (can have different names)
 
 name            Name or Titel to Display in in the tree
 parent_id       Id for nesting the tree
 position        For sorting the tree items
-type            Type of the Item, used for Icon and right as far as implemented
+type            Type of the Item, used for Icon and rights (still in developement)
 
 The Filednames can be configured as shown below. Just copy this code in 
 your Controller 
@@ -49,7 +70,7 @@ your Controller
 public function actionIndex() {
         
         // required database fields:
-        // name, parent_id, online, type, position
+        // name, parent_id, type, position
         
         $tree = new \kasoft\jstree\JsTree([
             'modelName'=>'backend\models\MY_MODEL_NAME',    // Namespace of the Model
