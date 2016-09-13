@@ -5,7 +5,6 @@ if (typeof jsonurl === 'undefined') {
     // the variable is defined
     var base_url = "/" + controller + "/";
     var jsonurl = base_url + index_action + "?easytree=fulljson";
-    console.log(typedata);
 
     $.getJSON(jsonurl, function (jsdata) {
         $(div_tree).jstree({
@@ -14,7 +13,7 @@ if (typeof jsonurl === 'undefined') {
                 "check_callback": true,
                 "themes": {
                     "stripes": true,
-                    "icons": show_icons
+                    "icons": true
                 },
                 'data': jsdata
             },

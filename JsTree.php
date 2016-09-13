@@ -142,23 +142,6 @@ class JsTree extends Widget
             if (empty($this->modelStandardName))
                 $this->modelStandardName = "Neuer Eintrag";
             
-            /* if (empty($this->typeData)) {
-                $this->typeData = [
-                    "#" => [
-                        "max_children" => -1,
-                        "max_depth" => -1,
-                        "valid_children" => -1, // "valid_children": ["root","xyz","folder"]
-                        "icon" => "glyphicon glyphicon-th-list"
-                    ],
-                    "pageonline" => [
-                        "icon" => "glyphicon glyphicon-log-in"
-                    ]
-                ];
-            } */
-            
-           
-            
-
             // Only Display Tree with loading Data via JSON URL    
         } else {
             $this->getView()->registerJs("var jsonurl = '" . $this->jsonUrl . "';", View::POS_HEAD);
