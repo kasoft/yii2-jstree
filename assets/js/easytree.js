@@ -200,18 +200,22 @@ if (typeof jsonurl === 'undefined') {
 
     /* Buttons or Links in Tree Form should load in result div */
     $(document).on('click', '.jstree-button', function (event) {
-        console.log($(this).data('confirm'));
-        if ($(this).data.confirm) {
-            confirm("ok?");
+        // if confirm is set (e.g. delete action) involve confirm dialog 
+        var doit = true;
+        if ($(this).data('confirm')) {
+            if (confirm($(this).data('confirm'))) doit=true;
+            else doit=false;
         }
-        /* $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('href'),
-            success: function (response) {
-                $('.jstree-result').html(response);
-            }
-        }); */
+        if(doit) {
+            $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
+            $.ajax({
+                type: "GET",
+                url: $(this).attr('href'),
+                success: function (response) {
+                    $('.jstree-result').html(response);
+                }
+            });
+        }
         return false; // stop the browser following the link
     });
 
