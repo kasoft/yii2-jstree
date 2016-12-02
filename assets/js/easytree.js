@@ -200,6 +200,10 @@ if (typeof jsonurl === 'undefined') {
 
     /* Buttons or Links in Tree Form should load in result div */
     $(document).on('click', '.jstree-button', function (event) {
+        console.log($(this).data);
+        if ($(this).data.confirm) {
+            confirm("ok?");
+        }
         $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
         $.ajax({
             type: "GET",
