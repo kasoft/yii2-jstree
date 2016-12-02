@@ -204,14 +204,14 @@ if (typeof jsonurl === 'undefined') {
         if ($(this).data.confirm) {
             confirm("ok?");
         }
-        $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
+        /* $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
         $.ajax({
             type: "GET",
             url: $(this).attr('href'),
             success: function (response) {
                 $('.jstree-result').html(response);
             }
-        });
+        }); */
         return false; // stop the browser following the link
     });
 
