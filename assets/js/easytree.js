@@ -200,7 +200,7 @@ if (typeof jsonurl === 'undefined') {
 
     /* Buttons or Links in Tree Form should load in result div */
     $(document).on('click', '.jstree-button', function (event) {
-        console.log($(this).data);
+        console.log($(this).data('confirm'));
         if ($(this).data.confirm) {
             confirm("ok?");
         }
