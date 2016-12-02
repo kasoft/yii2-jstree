@@ -202,10 +202,10 @@ if (typeof jsonurl === 'undefined') {
     $(document).on('click', '.jstree-button', function (event) {
         // if confirm is set (e.g. delete action) involve confirm dialog 
         var doit = true;
-        if ($(this).data('confirm')) {
+        /*if ($(this).data('confirm')) {
             if (confirm($(this).data('confirm'))) doit=true;
             else doit=false;
-        }
+        }*/
         if(doit) {
             $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Sende Daten ...</p></div>');
             $.ajax({
