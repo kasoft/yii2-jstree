@@ -8,11 +8,21 @@
  */
 
 namespace kasoft\jstree;
+use Yii;
 use yii\web\AssetBundle;
 
 class JsTreeAsset extends AssetBundle
 {
+    
     public $sourcePath = '@bower/vakata/jstree';
+    
+    public function __construct($config = array()) {
+        $path = Yii::getAlias('@bower/vakata/jstree');
+        if (!is_dir($path)) $this->sourcePath = '@bower/jstree';
+        else $this->sourcePath = '@bower/vakata/jstree';
+        parent::__construct($config);
+    }
+    
     public $js = [
         'dist/jstree.min.js',
     ];
