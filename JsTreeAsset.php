@@ -1,5 +1,6 @@
 <?php 
 /**
+ * Publishes all JsTree Assets, more Informations on https://www.jstree.com/
  * @link http://www.studio255.de/
  * @author Nils Menrad
  * @since 1.0
@@ -11,7 +12,7 @@ use yii\web\AssetBundle;
 
 class JsTreeAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/jstree';
+    public $sourcePath = '@bower/vakata/jstree';
     public $js = [
         'dist/jstree.min.js',
     ];

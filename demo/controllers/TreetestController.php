@@ -1,16 +1,18 @@
 <?php
 
-namespace backend\controllers;
+namespace app\controllers;
 
 use Yii;
+use app\models\Treetest;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AdminmenuController implements the CRUD actions for AdminMenu model.
+ * TreetestController implements the CRUD actions for Treetest model.
  */
-class AdminmenuController extends Controller
+class TreetestController extends Controller
 {
     /**
      * @inheritdoc
@@ -27,15 +29,14 @@ class AdminmenuController extends Controller
         ];
     }
 
-    
     public function actionIndex() {
         
         // required database fields:
         // name, parent_id, online, type, position
         
         $tree = new \kasoft\jstree\JsTree([
-            'modelName'=>'@app\models\Test',
-            'modelFirstParentId' => 2,
+            'modelName'=>'app\models\Treetest',
+            'modelFirstParentId' => NULL,
             'modelPropertyName' => 'name',
             'modelPropertyParentId' => 'parentId',
             'modelPropertyPosition' => 'position',
@@ -50,9 +51,8 @@ class AdminmenuController extends Controller
         
     }
 
-
     /**
-     * Updates an existing AdminMenu model.
+     * Updates an existing Treetest model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -60,9 +60,9 @@ class AdminmenuController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $this->layout = false;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -71,15 +71,28 @@ class AdminmenuController extends Controller
     }
 
     /**
-     * Finds the AdminMenu model based on its primary key value.
+     * Deletes an existing Treetest model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Treetest model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AdminMenu the loaded model
+     * @return Treetest the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Test::findOne($id)) !== null) {
+        if (($model = Treetest::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

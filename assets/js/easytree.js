@@ -3,8 +3,8 @@
 // ACTIVE RECORD VERSION
 if (typeof jsonurl === 'undefined') {
     // the variable is defined
-    var base_url = "/" + controller + "/";
-    var jsonurl = base_url + index_action + "?easytree=fulljson";
+    var base_url = "?r=" + controller + "/";
+    var jsonurl = base_url + index_action + "&easytree=fulljson";
 
     $.getJSON(jsonurl, function (jsdata) {
         $(jstreediv).jstree({
@@ -33,7 +33,7 @@ if (typeof jsonurl === 'undefined') {
                                 // location.href = base_url +'/update?id=' + obj.id.replace("id", "");
                                 $.ajax({
                                     type: "GET",
-                                    url: base_url + '/update?id=' + obj.id.replace("id", ""),
+                                    url: base_url + 'update&id=' + obj.id.replace("id", ""),
                                     success: function (data, textStatus) {
                                         $(".result").html(data);
                                     },
@@ -166,7 +166,7 @@ if (typeof jsonurl === 'undefined') {
         }).on("select_node.jstree", function (e, data) {
             $.ajax({
                 type: "GET",
-                url: base_url + 'update?id=' + data.node.id.replace("id", ""),
+                url: base_url + 'update&id=' + data.node.id.replace("id", ""),
                 success: function (data, textStatus) {
                     $(".jstree-result").html(data);
                     if (typeof afterLoad === "function") {

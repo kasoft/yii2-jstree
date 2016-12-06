@@ -3,30 +3,24 @@
 namespace app\models;
 
 use Yii;
-use Html;
-use yii\base\Exception;
 
 /**
- * This is the model class for table "admin_menue".
+ * This is the model class for table "tree_test".
  *
  * @property integer $id
  * @property integer $parentId
  * @property string $name
- * @property string $link
  * @property integer $position
- * @property integer $admin
- * @property integer $hidden
- * @property string $only_for
+ * @property integer $type
  */
-class Test extends \yii\db\ActiveRecord
+class Treetest extends \yii\db\ActiveRecord
 {
-    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'test';
+        return 'tree_test';
     }
 
     /**
@@ -35,7 +29,7 @@ class Test extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parentId', 'position'], 'integer'],
+            [['parentId', 'position', 'type'], 'integer'],
             [['name'], 'required'],
             [['name'], 'string', 'max' => 30],
         ];
@@ -44,14 +38,14 @@ class Test extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
-        return array(
+    public function attributeLabels()
+    {
+        return [
             'id' => 'ID',
-            'parentId' => 'Parent',
+            'parentId' => 'Parent ID',
             'name' => 'Name',
             'position' => 'Position',
-        );
+            'type' => 'Type',
+        ];
     }
-    
-   
 }
