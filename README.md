@@ -1,9 +1,9 @@
 Extension für jsTree Plugin
 ===========================
-jsTree for Yii2 is a Extension to display an ActiveRecord Model with jsTree.
+jsTree for Yii2 is a Extension to display an handle ActiveRecord Models with jsTree.
 
 - load tree data with ajax and display tree
-- define icons for different tree items
+- define icons for different tree items (with FontAwesome)
 - context menu with update, rename and delete
 - move tree items by drag'n'drop 
 
