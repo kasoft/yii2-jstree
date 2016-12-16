@@ -93,6 +93,10 @@ class JsTree extends Widget
      * If not set, it will become #jstree
      */
     public $jstreeDiv;
+    
+    // For Multiple Trees the Key is needed to remember the correct tree
+    // after reload 
+    public $jstreestatekey;
 
     /**
      * @var array Configure which plugins will be active on an instance. Should be an array of strings, where each element is a plugin name.
@@ -114,6 +118,9 @@ class JsTree extends Widget
         
         if (empty($this->jstreeDiv)) 
             $this->jstreeDiv  = "#jstree";
+        
+        if(empty($this->jstreestatekey))
+            $this->jstreestatekey = "jstree";
         
         if ($this->jstreeIcons===NULL)
             $this->jstreeIcons = true;
@@ -142,6 +149,7 @@ class JsTree extends Widget
         $this->getView()->registerJs("var jstreetype = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeplugins = " . Json::encode($this->jstreePlugins) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeicons = " . Json::encode($this->jstreeIcons) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var jstreestatekey = " . Json::encode($this->jstreestatekey) . ";", View::POS_HEAD);
 
         // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {
@@ -169,7 +177,7 @@ class JsTree extends Widget
                 $this->modelPropertyPosition = "sort";
 
             if (empty($this->modelStandardName))
-                $this->modelStandardName = "Neuer Eintrag";
+                $this->modelStandardName = "New Entry";
             
             // Only Display Tree with loading Data via JSON URL    
         } else {

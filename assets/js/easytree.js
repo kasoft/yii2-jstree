@@ -18,6 +18,7 @@ if (typeof jsonurl === 'undefined') {
                 'data': jsdata
             },
             "types": jstreetype,
+            "state": { "key": jstreestatekey },
             "plugins": jstreeplugins,
             "contextmenu": {
                 "items": function () {
