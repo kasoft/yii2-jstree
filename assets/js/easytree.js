@@ -2,9 +2,16 @@
 
 // ACTIVE RECORD VERSION
 if (typeof jsonurl === 'undefined') {
-    // the variable is defined
-    var base_url = "?r=" + controller + "/";
-    var jsonurl = base_url + index_action + "&easytree=fulljson";
+    
+    if(url_default.indexOf('?')<0) var chainCharakter = '?'; 
+    else var chainCharakter = '&'
+    
+    console.log(url_default);
+    console.log(url_click);
+    console.log(chainCharakter);
+    
+    var jsonurl = url_default + chainCharakter + "easytree=fulljson";
+    console.log(jsonurl);
 
     $.getJSON(jsonurl, function (jsdata) {
         $(jstreediv).jstree({
@@ -31,10 +38,10 @@ if (typeof jsonurl === 'undefined') {
                                 obj = inst.get_node(data.reference);
                                 // tbd
                                 // allow both methods: ajax load und href link
-                                // location.href = base_url +'/update?id=' + obj.id.replace("id", "");
+                                // location.href = url_default +'/update?id=' + obj.id.replace("id", "");
                                 $.ajax({
                                     type: "GET",
-                                    url: base_url + 'update&id=' + obj.id.replace("id", ""),
+                                    url: url_click + chainCharakter + 'id=' + obj.id.replace("id", ""),
                                     success: function (data, textStatus) {
                                         $(".result").html(data);
                                     },
@@ -80,7 +87,7 @@ if (typeof jsonurl === 'undefined') {
                                         async: false,
                                         type: 'POST',
                                         dataType: "json",
-                                        url: base_url,
+                                        url: url_default,
                                         data: {
                                             "easytree": "delete",
                                             "id": obj.id.replace("id", ""),
@@ -110,7 +117,7 @@ if (typeof jsonurl === 'undefined') {
                 async: false,
                 type: 'POST',
                 dataType: "json",
-                url: base_url,
+                url: url_default,
                 data: {
                     "easytree": "move",
                     "id": data.node.id.replace("id", ""),
@@ -128,7 +135,7 @@ if (typeof jsonurl === 'undefined') {
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: base_url,
+                url: url_default,
                 dataType: "json",
                 data: {
                     "easytree": "create",
@@ -151,7 +158,7 @@ if (typeof jsonurl === 'undefined') {
                 async: false,
                 type: 'POST',
                 dataType: "json",
-                url: base_url,
+                url: url_default,
                 data: {
                     "easytree": "rename",
                     "id": data.node.id.replace("id", ""),
@@ -167,7 +174,7 @@ if (typeof jsonurl === 'undefined') {
         }).on("select_node.jstree", function (e, data) {
             $.ajax({
                 type: "GET",
-                url: base_url + 'update&id=' + data.node.id.replace("id", ""),
+                url: url_click + chainCharakter +'id=' + data.node.id.replace("id", ""),
                 success: function (data, textStatus) {
                     $(".jstree-result").html(data);
                     if (typeof afterLoad === "function") {

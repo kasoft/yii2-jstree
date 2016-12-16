@@ -16,6 +16,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\bootstrap\Widget;
 use yii\web\View;
+use yii\helpers\Url;
 use kasoft\jstree\JsTreeAsset;
 
 class JsTree extends Widget
@@ -75,16 +76,22 @@ class JsTree extends Widget
      */
     public $modelStandardName;          // String for a new Node if not entered by the user
     // JS Vars
-    /*
-     * @var string Name of the Controller internally used for calling ajax actions.
-     */
-    public $controllerId;           // controller id for ajax call "cms"
-
-    /*
-     * @var Base Action for tree "index"
-     */
-    public $baseAction;
     
+    /*
+     * @var string Name of the Controller used for calling ajax actions.
+     */
+    public $controller;           // controller name for ajax call "cms"
+    
+    /*
+     * @var string Name of the Action that should be called when node is clicked
+     */
+    public $action_click;
+    
+    /*
+     * @var string Default Action for Tree (e.g. index)
+     */
+    public $action_default;
+
     public $jstreeIcons=NULL;
     public $jstreeType;
     public $jstreePlugins;
@@ -154,15 +161,23 @@ class JsTree extends Widget
         // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {
 
-            $this->controllerId = Yii::$app->controller->id;
-            if (empty($this->baseAction))
-                $this->baseAction = "index";
+            $this->controller = Yii::$app->controller->id;
+            
+            if (empty($this->action_default))
+                $this->action_default = "index";
+            
+            if (empty($this->action_click))
+                $this->action_click = "update";
+            
+            // Create Needed URLs for JS
+            // e.g. /index.php?r=site/index
+            // or /site/index
+            $baseUrl = Url::to();
+            $this->getView()->registerJs("var url_default = '" . Url::to([$this->controller."/".$this->action_default]) . "';", View::POS_HEAD);
+            $this->getView()->registerJs("var url_click = '" . Url::to([$this->controller."/".$this->action_click]) . "';", View::POS_HEAD);
 
             if (!isset($this->showIcons))
                 $this->showIcons = true;
-
-            $this->getView()->registerJs("var controller = '" . $this->controllerId . "';", View::POS_HEAD);
-            $this->getView()->registerJs("var index_action = '" . $this->baseAction . "';", View::POS_HEAD);
 
             if (empty($this->modelPropertyName))
                 $this->modelPropertyName = "name";
