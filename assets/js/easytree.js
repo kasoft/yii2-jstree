@@ -5,13 +5,7 @@ if (typeof jsonurl === 'undefined') {
     
     if(url_default.indexOf('?')<0) var chainCharakter = '?'; 
     else var chainCharakter = '&'
-    
-    console.log(url_default);
-    console.log(url_click);
-    console.log(chainCharakter);
-    
     var jsonurl = url_default + chainCharakter + "easytree=fulljson";
-    console.log(jsonurl);
 
     $.getJSON(jsonurl, function (jsdata) {
         $(jstreediv).jstree({
