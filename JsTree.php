@@ -101,8 +101,10 @@ class JsTree extends Widget
      */
     public $jstreeDiv;
     
-    // For Multiple Trees the Key is needed to remember the correct tree
-    // after reload 
+    /*
+     * With this state key, jstree sets a cookie to remember the state of the
+     * tree (e.g. which bracnhes are open, etc.)
+     */
     public $jstreestatekey;
 
     /**
@@ -126,9 +128,6 @@ class JsTree extends Widget
         if (empty($this->jstreeDiv)) 
             $this->jstreeDiv  = "#jstree";
         
-        if(empty($this->jstreestatekey))
-            $this->jstreestatekey = "jstree";
-        
         if ($this->jstreeIcons===NULL)
             $this->jstreeIcons = true;
         
@@ -147,6 +146,9 @@ class JsTree extends Widget
                     "icon" => "glyphicon glyphicon-th-list"
                 ],
                 "default" => [
+                    "max_children" => -1,
+                    "max_depth" => -1,
+                    "valid_children" => -1, 
                     "icon" => "glyphicon glyphicon-question-sign"
                 ],
             ];
@@ -156,7 +158,7 @@ class JsTree extends Widget
         $this->getView()->registerJs("var jstreetype = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeplugins = " . Json::encode($this->jstreePlugins) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeicons = " . Json::encode($this->jstreeIcons) . ";", View::POS_HEAD);
-        $this->getView()->registerJs("var jstreestatekey = " . Json::encode($this->jstreestatekey) . ";", View::POS_HEAD);
+        
 
         // Use with ActiveRecord Model and all Actions 
         if ($this->modelName) {
@@ -176,6 +178,10 @@ class JsTree extends Widget
             $this->getView()->registerJs("var url_default = '" . Url::to([$this->controller."/".$this->action_default]) . "';", View::POS_HEAD);
             $this->getView()->registerJs("var url_click = '" . Url::to([$this->controller."/".$this->action_click]) . "';", View::POS_HEAD);
 
+            if(empty($this->jstreestatekey))
+                $this->jstreestatekey = $this->controller;
+            $this->getView()->registerJs("var jstreestatekey = " . Json::encode($this->jstreestatekey) . ";", View::POS_HEAD);
+            
             if (!isset($this->showIcons))
                 $this->showIcons = true;
 
