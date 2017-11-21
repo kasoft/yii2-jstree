@@ -76,30 +76,31 @@ if (typeof jsonurl === 'undefined') {
                             "action": function (data) {
                                 if (confirm("Sind Sie sicher?")) {
                                     var inst = $.jstree.reference(data.reference);
-                                    obj = inst.get_node(data.reference);
-                                    $.ajax({
-                                        async: false,
-                                        type: 'POST',
-                                        dataType: "json",
-                                        url: url_default,
-                                        data: {
-                                            "easytree": "delete",
-                                            "id": obj.id.replace("id", ""),
-                                        },
-                                        success: function (r) {
-                                            if (r.status) {
-                                                var ref = $.jstree.reference(data.reference);
-                                                sel = ref.get_selected();
-                                                if (!sel.length) {
+                                    selected = inst.get_selected(data.reference);
+                                    for (var key in selected) {
+                                        // skip loop if the property is from prototype
+                                        if (!selected.hasOwnProperty(key)) continue;
+                                        var obj = selected[key];
+                                        $.ajax({
+                                            async: false,
+                                            type: 'POST',
+                                            dataType: "json",
+                                            url: url_default,
+                                            data: {
+                                                "easytree": "delete",
+                                                "id": obj.id.replace("id", ""),
+                                            },
+                                            success: function (r) {
+                                                if (r.status) {
+                                                    inst.delete_node(obj);
+                                                } else {
+                                                    alert(r.error);
                                                     return false;
                                                 }
-                                                ref.delete_node(sel);
-                                            } else {
-                                                alert(r.error);
-                                                return false;
                                             }
-                                        }
-                                    });
+                                        });
+                                        
+                                    }
                                 }
                             }
                         }

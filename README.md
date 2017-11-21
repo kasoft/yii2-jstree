@@ -27,6 +27,12 @@ or add
 
 to the require section of your `composer.json` file.
 
+Latest News
+-----
+
+Version 1.0.3
+- Selected multiple Nodes are all deleted
+
 
 Usage without Model (JSON only)
 -----
