@@ -14,20 +14,18 @@ use yii\web\AssetBundle;
 class JsTreeAsset extends AssetBundle
 {
     
-    public $sourcePath = '@bower/vakata/jstree';
+    public $sourcePath = '@vendor/vakata/jstree/dist';
     
     public function __construct($config = array()) {
-        $path = Yii::getAlias('@bower/vakata/jstree');
-        if (!is_dir($path)) $this->sourcePath = '@bower/jstree';
-        else $this->sourcePath = '@bower/vakata/jstree';
+        $path = Yii::getAlias('@vendor/vakata/jstree/dist');
         parent::__construct($config);
     }
     
     public $js = [
-        'dist/jstree.min.js',
+        'jstree.min.js',
     ];
     public $css = [
-        'dist/themes/default/style.min.css',
+        'themes/default/style.min.css',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
