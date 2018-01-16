@@ -35,7 +35,7 @@ if (typeof jsonurl === 'undefined') {
                                 // location.href = url_default +'/update?id=' + obj.id.replace("id", "");
                                 
                                 // If .result div exists, use ajax, otherwise redirect
-                                if ($('.result').length){
+                                if ($('.jstree-result').length){
                                     $.ajax({
                                         type: "GET",
                                         url: url_click + chainCharakter + 'id=' + obj.id.replace("id", ""),
@@ -231,7 +231,7 @@ if (typeof jsonurl === 'undefined') {
     /* Tree click Preloader */
     /* Every klick on a treeitem load the update in resonse div*/
     $(document).ready(function () {
-        if ($('.result').length){
+        if ($('.jstree-result').length){
             $(jstreediv).on("select_node.jstree", function (e, data) {
                 $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Lade Daten ...</p></div>');
             });
