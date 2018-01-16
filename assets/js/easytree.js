@@ -33,16 +33,22 @@ if (typeof jsonurl === 'undefined') {
                                 // tbd
                                 // allow both methods: ajax load und href link
                                 // location.href = url_default +'/update?id=' + obj.id.replace("id", "");
-                                $.ajax({
-                                    type: "GET",
-                                    url: url_click + chainCharakter + 'id=' + obj.id.replace("id", ""),
-                                    success: function (data, textStatus) {
-                                        $(".result").html(data);
-                                    },
-                                    error: function () {
-                                        alert('Error loading Page!');
-                                    }
-                                })
+                                
+                                // If .result div exists, use ajax, otherwise redirect
+                                if ($('.result').length){
+                                    $.ajax({
+                                        type: "GET",
+                                        url: url_click + chainCharakter + 'id=' + obj.id.replace("id", ""),
+                                        success: function (data, textStatus) {
+                                            $(".result").html(data);
+                                        },
+                                        error: function () {
+                                            alert('Error loading Page!');
+                                        }
+                                    });
+                                } else {
+                                    window.location = url_click + chainCharakter + 'id=' + obj.id.replace("id", "");
+                                }
                             }
                         },
                         "Create_menue": {
