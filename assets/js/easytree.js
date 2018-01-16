@@ -26,7 +26,7 @@ if (typeof jsonurl === 'undefined') {
                     return {
                         "Edit": {
                             "label": "Bearbeiten",
-                            "icon": "fa fa-pencil",
+                            "icon": "glyphicon glyphicon-pencil",
                             "action": function (data) {
                                 var inst = $.jstree.reference(data.reference);
                                 obj = inst.get_node(data.reference);
@@ -63,7 +63,7 @@ if (typeof jsonurl === 'undefined') {
                         },
                         "Rename": {
                             "label": "Umbenennen",
-                            "icon": "fa fa-refresh",
+                            "icon": "glyphicon glyphicon-transfer",
                             "action": function (data) {
                                 var inst = $.jstree.reference(data.reference);
                                 obj = inst.get_node(data.reference);
@@ -72,7 +72,7 @@ if (typeof jsonurl === 'undefined') {
                         },
                         "Delete": {
                             "label": "Löschen",
-                            "icon": "fa fa-trash",
+                            "icon": "glyphicon glyphicon-trash",
                             "action": function (data) {
                                 if (confirm("Sind Sie sicher?")) {
                                     var inst = $.jstree.reference(data.reference);
