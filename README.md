@@ -30,6 +30,11 @@ to the require section of your `composer.json` file.
 Latest News
 -----
 
+Version 1.0.4
+- Selecting a Node will trigger update action via Ajax and load result in .jstree-result div.
+If the .jstree-result is not found, it will redirect to Update Action
+- Changed all Submenu Icons to Glyhicon
+
 Version 1.0.3
 - Selected multiple Nodes are all deleted
 
