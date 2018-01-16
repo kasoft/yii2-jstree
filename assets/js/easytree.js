@@ -173,20 +173,21 @@ if (typeof jsonurl === 'undefined') {
                 }
             });
         }).on("select_node.jstree", function (e, data) {
-            $.ajax({
-                type: "GET",
-                url: url_click + chainCharakter +'id=' + data.node.id.replace("id", ""),
-                success: function (data, textStatus) {
-                    $(".jstree-result").html(data);
-                    if (typeof afterLoad === "function") {
-                        afterLoad();
+            if ($('.jstree-result').length){
+                $.ajax({
+                    type: "GET",
+                    url: url_click + chainCharakter +'id=' + data.node.id.replace("id", ""),
+                    success: function (data, textStatus) {
+                        $(".jstree-result").html(data);
+                        if (typeof afterLoad === "function") {
+                            afterLoad();
+                        }
+                    },
+                    error: function () {
+                        // alert('Error loading Page!');
                     }
-                },
-                error: function () {
-                    // alert('Error loading Page!');
-                }
-            })
-
+                });
+            } 
         });
     });
 
