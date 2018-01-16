@@ -231,9 +231,11 @@ if (typeof jsonurl === 'undefined') {
     /* Tree click Preloader */
     /* Every klick on a treeitem load the update in resonse div*/
     $(document).ready(function () {
-        $(jstreediv).on("select_node.jstree", function (e, data) {
-            $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Lade Daten ...</p></div>');
-        });
+        if ($('.result').length){
+            $(jstreediv).on("select_node.jstree", function (e, data) {
+                $(".jstree-result").prepend('<div class="jstree-result-loader"><p>Lade Daten ...</p></div>');
+            });
+        }
     });
 
 // JSON ONLY VERSION
