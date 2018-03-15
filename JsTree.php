@@ -16,6 +16,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\bootstrap\Widget;
 use yii\web\View;
+use yii\web\Response;
 use yii\helpers\Url;
 use kasoft\jstree\JsTreeAsset;
 
@@ -204,6 +205,11 @@ class JsTree extends Widget
         } else {
             $this->getView()->registerJs("var jsonurl = '" . $this->jsonUrl . "';", View::POS_HEAD);
         }
+        
+        if (isset($_REQUEST["easytree"])) {
+            $this->treeaction();
+        }
+        
     }
 
     public function run() {
@@ -217,6 +223,7 @@ class JsTree extends Widget
         $view = $this->getView();
         JsTreeAsset::register($view);
     }
+    
 
     // AJAX call for 
     // -> load: return full json for tree init
@@ -230,10 +237,11 @@ class JsTree extends Widget
      * delete: delete node
      */
     public function treeaction() {
+        
         if (isset($_REQUEST["easytree"])) {
             $operation = $_REQUEST["easytree"];
             if ($operation == "fulljson")
-                echo json_encode(self::treeChildren($this->modelName, $this->modelFirstParentId));
+               self::sendJSON(self::treeChildren($this->modelName, $this->modelFirstParentId));
             if ($operation == "move") {
                 $modelName = $this->modelName;
                 $model = $modelName::findOne($_POST["id"]);
@@ -356,6 +364,7 @@ class JsTree extends Widget
         header("Cache-Control: no-cache, must-revalidate");
         header("Pragma: no-cache");
         echo json_encode($json);
+        die();
     }
 
 }

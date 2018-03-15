@@ -16,19 +16,23 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.2"
+php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.6"
 ```
 
 or add
 
 ```
-"kasoft/yii2-jstree": "1.0.2",
+"kasoft/yii2-jstree": "1.0.6",
 ```
 
 to the require section of your `composer.json` file.
 
 Latest News
 -----
+
+Version 1.0.6
+- Fixed a Problem with Yii 2.0.14, because of a diffrent Error Handling, the Tree wasn't displayes
+- REQUEST check in Controller isn't needed any more
 
 Version 1.0.5
 - Selecting a Node will trigger update action via Ajax and load result in .jstree-result div.
@@ -112,10 +116,6 @@ public function actionIndex() {
             ]
         ]);
         
-        if (isset($_REQUEST["easytree"])) {
-            $tree->treeaction();
-            Yii::$app->end();
-        }
         return $this->render('index');
     }
  ?>
