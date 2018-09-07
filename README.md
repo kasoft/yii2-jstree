@@ -16,19 +16,22 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.6"
+php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.7"
 ```
 
 or add
 
 ```
-"kasoft/yii2-jstree": "1.0.6",
+"kasoft/yii2-jstree": "1.0.7",
 ```
 
 to the require section of your `composer.json` file.
 
 Latest News
 -----
+
+Version 1.0.7
+- Added modelPropertyType with default value + online/offline glyphicons as default
 
 Version 1.0.6
 - Fixed a Problem with Yii 2.0.14, because of a diffrent Error Handling, the Tree wasn't displayes

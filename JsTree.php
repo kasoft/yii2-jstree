@@ -69,7 +69,7 @@ class JsTree extends Widget
      * be also used to set allwoed/disallowed functions (child creation, new nodes, etc.)
      * This is not implemented at the Moment! 
      */
-    public $modelPropertyType = NULL;     // Column Name of the Position attribute e. g. 'position'
+    public $modelPropertyType = NULL;     // Column Name of the type Attribute og Node e. g. 'type'
 
     /*
      * @var string Text for the initial name of a new node. As a new node will be craeted
@@ -150,7 +150,19 @@ class JsTree extends Widget
                     "max_children" => -1,
                     "max_depth" => -1,
                     "valid_children" => -1, 
-                    "icon" => "glyphicon glyphicon-question-sign"
+                    "icon" => "glyphicon glyphicon-list-alt"
+                ],
+                "online" => [
+                    "max_children" => -1,
+                    "max_depth" => -1,
+                    "valid_children" => -1, 
+                    "icon" => "glyphicon glyphicon-ok-sign"
+                ],
+                "offline" => [
+                    "max_children" => -1,
+                    "max_depth" => -1,
+                    "valid_children" => -1, 
+                    "icon" => "glyphicon glyphicon-minus-sign"
                 ],
             ];
         }
@@ -197,6 +209,9 @@ class JsTree extends Widget
 
             if (empty($this->modelPropertyPosition))
                 $this->modelPropertyPosition = "sort";
+            
+            if (empty($this->modelPropertyType))
+                $this->modelPropertyType = "type";
 
             if (empty($this->modelStandardName))
                 $this->modelStandardName = "New Entry";
