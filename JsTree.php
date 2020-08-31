@@ -71,6 +71,13 @@ class JsTree extends Widget
     public $modelPropertyType = NULL;
     
     /*
+     * @var boolean Disables the ability to cascade deleting. User maybe delete
+     * a Tree with mutltiple Elements by accident
+     * !!! NOT IMPLEMENTED YET - Cascading is not possible !!!!!
+     */
+    public $noCascadingDelete = true;
+    
+    /*
      * @var array Allows to define different Types of Nodes wich can have restrictions
      * in creating child Elements or which have diffenet icons. See jsTree Docs for 
      * more informations.
@@ -79,7 +86,7 @@ class JsTree extends Widget
     
     /*@var array Messages for Userinteractions which can be set to individual Text
      */
-    public $jstreeMsg = [];
+    public $jstreeMsg = NULL;
     
     /*
      * @var array Configuration for Context Menu. It is possible to choose which Elements 
@@ -157,12 +164,16 @@ class JsTree extends Widget
             ];
         }
         
-        if(empty($this->jstreeMsg)) { 
-            $this->jstreeMsg = [
-                "confirmdelete" => "Löschen? Sine Sie sicher?",
-                "nothere" => "An dieser Stelle leider nicht möglich!",
-            ];
-        }
+            
+        $standardMsg = [
+            "confirmdelete" => "Löschen? Sine Sie sicher?",
+            "nothere" => "An dieser Stelle leider nicht möglich!",
+            "itemnotexisting" => "Das Element existiert nicht!",
+            "itemcantdel" => "Das Element kann nicht gelöscht werden!",
+            "itemnodeletchildren" => "Das Element hat weitere Unterebenen und kann daher nicht gelöscht werden!",
+        ];
+        $this->jstreeMsg = array_merge($standardMsg,$this->jstreeMsg);
+            
         
         if(empty($this->jstreeContextMenue)) { 
             $this->jstreeContextMenue = [
@@ -368,19 +379,19 @@ class JsTree extends Widget
                     $modelName = $this->modelName;
                     $model = $modelName::findOne($_POST["id"]);
                     if (!$model) {
-                        self::sendJSON(array('status' => 0, 'error' => 'Item does not exist!'));
+                        self::sendJSON(array('status' => 0, 'error' => $this->jstreeMsg['itemnotexisting']??""));
                     }
                     else {
                         if ($model->delete()) {
                             self::sendJSON(array('status' => 1));
                         }
                         else {
-                            self::sendJSON(array('status' => 0, 'error' => 'Item cannot be deleted!'));
+                            self::sendJSON(array('status' => 0, 'error' => $this->jstreeMsg['itemcantdel']??""));
                         }
                     }
                 }
                 else {
-                    self::sendJSON(array('status' => 0, 'error' => 'Item has children and cannot be deleted! Delete first all children.'));
+                    self::sendJSON(array('status' => 0, 'error' => $this->jstreeMsg['itemnodeletchildren']??""));
                 }
             }
         }

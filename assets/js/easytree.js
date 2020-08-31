@@ -28,11 +28,8 @@ if (typeof jsonurl === 'undefined') {
                     // Edit Menü 
                     if ('edit' in jstreeContextMenue) {
                         var edit = jstreeContextMenue.edit;
-                        var icon = "glyphicon glyphicon-pencil";
-                        if(edit.icon!="undefined") icon=edit.icon;
                         context_items.edit = {
                                 "label": edit.text,
-                                "icon": icon,
                                 "action": function (data) {
                                     var inst = $.jstree.reference(data.reference);
                                     obj = inst.get_node(data.reference);
@@ -56,14 +53,14 @@ if (typeof jsonurl === 'undefined') {
                                         window.location = url_click + chainCharakter + 'id=' + obj.id.replace("id", "");
                                     }
                                 }
-                            }
+                        }
+                        if(typeof edit.icon!=="undefined") context_items.edit.icon = edit.icon;
+                        else context_items.edit.icon = "glyphicon glyphicon-pencil";
                     }
                     
                     // Create/New Menü 
                     if ('create' in jstreeContextMenue) {
                         var create = jstreeContextMenue.create;
-                        var icon = "glyphicon glyphicon-th-list";
-                        if(create.icon!="undefined") icon=create.icon;
                         
                         //Submenu with different Types
                         if(typeof create.submenu!=='undefined') {
@@ -71,7 +68,6 @@ if (typeof jsonurl === 'undefined') {
                                 create.submenu.forEach(function (element, index) {
                                     subitems['create_'+index] = {
                                         "label": element.text,
-                                        "icon": element.icon,
                                         "action": function (data) {
                                             var inst = $.jstree.reference(data.reference),
                                             obj = inst.get_node(data.reference);
@@ -81,10 +77,10 @@ if (typeof jsonurl === 'undefined') {
                                             if(new_node_id===false) alert(jstreeMsg.nothere);
                                         }
                                     };
+                                    if(typeof element.icon!=="undefined") subitems['create_'+index]['icon'] = element.icon;
                                 });
                                 context_items.create = {
                                     "label": create.text,
-                                    "icon": icon,
                                     "submenu": subitems
                                 };
                             
@@ -94,7 +90,6 @@ if (typeof jsonurl === 'undefined') {
                             if(typeof create.type!=='undefined') node_type=create.type;
                             context_items.create = {
                                 "label": jstreeContextMenue.create.text,
-                                "icon": icon,
                                 "action": function (data) {
                                     var inst = $.jstree.reference(data.reference),
                                     obj = inst.get_node(data.reference);
@@ -104,33 +99,32 @@ if (typeof jsonurl === 'undefined') {
                                     if(new_node_id===false) alert(jstreeMsg.nothere);
                                 }
                             }
+                            
                         }
+                        if(typeof create.icon!=="undefined") context_items.create.icon = create.icon;
+                        else context_items.create.icon = "glyphicon glyphicon-th-list";
                     };
                     
                     // Rename Menu
                     if ('rename' in jstreeContextMenue) {
                         var rename = jstreeContextMenue.rename;
-                        var icon = "glyphicon glyphicon-transfer";
-                        if(rename.icon!="undefined") icon=rename.icon;
                         context_items.rename = {
                             "label": rename.text,
-                            "icon": icon,
                              "action": function (data) {
                                 var inst = $.jstree.reference(data.reference);
                                 obj = inst.get_node(data.reference);
                                 inst.edit(obj);
                             }
                         }
+                        if(typeof rename.icon!=="undefined") context_items.rename.icon = rename.icon;
+                        else context_items.rename.icon = "glyphicon glyphicon-transfer";
                     };
                     
                     // Delete Menu 
                     if ('remove' in jstreeContextMenue) {
                         var remove = jstreeContextMenue.remove;
-                        var icon = "glyphicon glyphicon-trash";
-                        if(remove.icon!="undefined") icon=remove.icon;
                         context_items.remove = {
                             "label": remove.text,
-                            "icon": icon,
                             "action": function (data) {
                                 if (confirm(jstreeMsg.confirmdelete)) {
                                     var inst = $.jstree.reference(data.reference);
@@ -162,6 +156,8 @@ if (typeof jsonurl === 'undefined') {
                                 }
                             }
                         }
+                        if(typeof remove.icon!=="undefined") context_items.remove.icon = remove.icon;
+                        else context_items.remove.icon = "glyphicon glyphicon-trash";
                     };
                     return context_items;
                 }
