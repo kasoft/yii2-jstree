@@ -115,17 +115,10 @@ if (typeof jsonurl === 'undefined') {
                         context_items.rename = {
                             "label": rename.text,
                             "icon": icon,
-                            "action": function (data) {
-                                var ref = $.jstree.reference(data.reference);
-                                sel = ref.get_selected();
-                                if (!sel.length) {
-                                    return false;
-                                }
-                                sel = sel[0];
-                                sel = ref.create_node(sel, {"type": "menue"});
-                                if (sel) {
-                                    ref.edit(sel);
-                                }
+                             "action": function (data) {
+                                var inst = $.jstree.reference(data.reference);
+                                obj = inst.get_node(data.reference);
+                                inst.edit(obj);
                             }
                         }
                     };
