@@ -11,6 +11,7 @@ namespace kasoft\jstree;
 use Yii;
 use yii\web\AssetBundle;
 
+
 class JsTreeAsset extends AssetBundle
 {
     

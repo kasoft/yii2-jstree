@@ -3,9 +3,11 @@ Extension für jsTree Plugin
 jsTree for Yii2 is a Extension to display an handle ActiveRecord Models with jsTree.
 
 - load tree data with ajax and display tree
-- define icons for different tree items (with FontAwesome)
+- define icons for different tree items (e.g. with FontAwesome)
 - context menu with update, rename and delete
 - move tree items by drag'n'drop 
+- context submenu with individual node types
+- individual text messages
 
 
 Installation
@@ -16,19 +18,27 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.7"
+php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.8"
 ```
 
 or add
 
 ```
-"kasoft/yii2-jstree": "1.0.7",
+"kasoft/yii2-jstree": "1.0.8",
 ```
 
 to the require section of your `composer.json` file.
 
 Latest News
 -----
+
+Version 1.0.8
+- Set individual Context Menu Text and individual Alert Messages
+- Choose which Context Menu should be displayed (create, edit, delete, rename)
+- Set individual Icon for each Enty
+- Setup a create Submenu with different new node Types and define these Node Type 
+as described in JsTree Docs with different possibilities (allow childs, allow move, set icon)
+
 
 Version 1.0.7
 - Added modelPropertyType with default value + online/offline glyphicons as default
@@ -106,6 +116,30 @@ public function actionIndex() {
             'jstreeDiv' => '#jstree',                       // DIV where the Tree will be displayed
             'jstreeIcons' => false,                         // Show Icons or not
             'jstreePlugins' => ["contextmenu", "dnd",..],   // Plugins to be load
+            'jstreeContextMenue' => [                       // Define individual menu
+                "remove" => [
+                    "text" => "Delete",
+                    "icon" => "glyphicon glyphicon-plane",
+                ],
+                "edit" => [
+                    "text" => "Edit",
+                    "icon" => "glyphicon glyphicon-picture",
+                ],
+                "create" => [
+                    "text" => "Create new",
+                    "icon" => "glyphicon glyphicon-barcode",
+                    "type"=> "online",
+                    "submenu" => [                          //Define submenu for creating node types
+                        ["text"=>"Create new with Type offline","icon" => "glyphicon glyphicon-barcode","type"=>"offline"],
+                        ["text"=>"Create new with Type online","icon" => "glyphicon glyphicon-plane", "type"=>"online"],
+                        ["text"=>"Create new with Type default","glyphicon glyphicon-volume-up","type"=>""],
+                    ]
+                ],
+                "rename" => [
+                    "text" => "Rename",
+                    "icon" => "glyphicon glyphicon-volume-up",
+                ],
+            ],
             'jstreeType' => [                               // jsTree Type Options
                 "#" => [
                     "max_children" => -1,
@@ -116,7 +150,11 @@ public function actionIndex() {
                 "default" => [
                     "icon" => "glyphicon glyphicon-question-sign"
                 ],
-            ]
+            ],
+            'jstreeMsg' => [                                // Individual Alert Messages
+                    "confirmdelete" => "Are you sure? Delete?",
+                    "nothere" => "Not possible at this Position!",
+                ]
         ]);
         
         return $this->render('index');

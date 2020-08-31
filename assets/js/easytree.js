@@ -23,37 +23,98 @@ if (typeof jsonurl === 'undefined') {
             "plugins": jstreeplugins,
             "contextmenu": {
                 "items": function () {
-                    return {
-                        "Edit": {
-                            "label": "Bearbeiten",
-                            "icon": "glyphicon glyphicon-pencil",
-                            "action": function (data) {
-                                var inst = $.jstree.reference(data.reference);
-                                obj = inst.get_node(data.reference);
-                                // tbd
-                                // allow both methods: ajax load und href link
-                                // location.href = url_default +'/update?id=' + obj.id.replace("id", "");
-                                
-                                // If .result div exists, use ajax, otherwise redirect
-                                if ($('.jstree-result').length){
-                                    $.ajax({
-                                        type: "GET",
-                                        url: url_click + chainCharakter + 'id=' + obj.id.replace("id", ""),
-                                        success: function (data, textStatus) {
-                                            $(".result").html(data);
-                                        },
-                                        error: function () {
-                                            alert('Error loading Page!');
-                                        }
-                                    });
-                                } else {
-                                    window.location = url_click + chainCharakter + 'id=' + obj.id.replace("id", "");
+                    var context_items = {};
+                    
+                    // Edit Menü 
+                    if ('edit' in jstreeContextMenue) {
+                        var edit = jstreeContextMenue.edit;
+                        var icon = "glyphicon glyphicon-pencil";
+                        if(edit.icon!="undefined") icon=edit.icon;
+                        context_items.edit = {
+                                "label": edit.text,
+                                "icon": icon,
+                                "action": function (data) {
+                                    var inst = $.jstree.reference(data.reference);
+                                    obj = inst.get_node(data.reference);
+                                    // tbd
+                                    // allow both methods: ajax load und href link
+                                    // location.href = url_default +'/update?id=' + obj.id.replace("id", "");
+
+                                    // If .result div exists, use ajax, otherwise redirect
+                                    if ($('.jstree-result').length){
+                                        $.ajax({
+                                            type: "GET",
+                                            url: url_click + chainCharakter + 'id=' + obj.id.replace("id", ""),
+                                            success: function (data, textStatus) {
+                                                $(".result").html(data);
+                                            },
+                                            error: function () {
+                                                alert('Error loading Page!');
+                                            }
+                                        });
+                                    } else {
+                                        window.location = url_click + chainCharakter + 'id=' + obj.id.replace("id", "");
+                                    }
                                 }
                             }
-                        },
-                        "Create_menue": {
-                            "label": "Neu",
-                            "icon": "glyphicon glyphicon-th-list",
+                    }
+                    
+                    // Create/New Menü 
+                    if ('create' in jstreeContextMenue) {
+                        var create = jstreeContextMenue.create;
+                        var icon = "glyphicon glyphicon-th-list";
+                        if(create.icon!="undefined") icon=create.icon;
+                        
+                        //Submenu with different Types
+                        if(typeof create.submenu!=='undefined') {
+                                var subitems = {};
+                                create.submenu.forEach(function (element, index) {
+                                    subitems['create_'+index] = {
+                                        "label": element.text,
+                                        "icon": element.icon,
+                                        "action": function (data) {
+                                            var inst = $.jstree.reference(data.reference),
+                                            obj = inst.get_node(data.reference);
+                                            var new_node_id = inst.create_node(obj, { type : element.type }, "last", function (new_node) {
+                                                    setTimeout(function () { inst.edit(new_node); },0);
+                                            });
+                                            if(new_node_id===false) alert(jstreeMsg.nothere);
+                                        }
+                                    };
+                                });
+                                context_items.create = {
+                                    "label": create.text,
+                                    "icon": icon,
+                                    "submenu": subitems
+                                };
+                            
+                        // Single Menue    
+                        } else {
+                            var node_type = "default";
+                            if(typeof create.type!=='undefined') node_type=create.type;
+                            context_items.create = {
+                                "label": jstreeContextMenue.create.text,
+                                "icon": icon,
+                                "action": function (data) {
+                                    var inst = $.jstree.reference(data.reference),
+                                    obj = inst.get_node(data.reference);
+                                    var new_node_id = inst.create_node(obj, { type : node_type }, "last", function (new_node) {
+                                            setTimeout(function () { inst.edit(new_node); },0);
+                                    });
+                                    if(new_node_id===false) alert(jstreeMsg.nothere);
+                                }
+                            }
+                        }
+                    };
+                    
+                    // Rename Menu
+                    if ('rename' in jstreeContextMenue) {
+                        var rename = jstreeContextMenue.rename;
+                        var icon = "glyphicon glyphicon-transfer";
+                        if(rename.icon!="undefined") icon=rename.icon;
+                        context_items.rename = {
+                            "label": rename.text,
+                            "icon": icon,
                             "action": function (data) {
                                 var ref = $.jstree.reference(data.reference);
                                 sel = ref.get_selected();
@@ -66,21 +127,19 @@ if (typeof jsonurl === 'undefined') {
                                     ref.edit(sel);
                                 }
                             }
-                        },
-                        "Rename": {
-                            "label": "Umbenennen",
-                            "icon": "glyphicon glyphicon-transfer",
+                        }
+                    };
+                    
+                    // Delete Menu 
+                    if ('remove' in jstreeContextMenue) {
+                        var remove = jstreeContextMenue.remove;
+                        var icon = "glyphicon glyphicon-trash";
+                        if(remove.icon!="undefined") icon=remove.icon;
+                        context_items.remove = {
+                            "label": remove.text,
+                            "icon": icon,
                             "action": function (data) {
-                                var inst = $.jstree.reference(data.reference);
-                                obj = inst.get_node(data.reference);
-                                inst.edit(obj);
-                            }
-                        },
-                        "Delete": {
-                            "label": "Löschen",
-                            "icon": "glyphicon glyphicon-trash",
-                            "action": function (data) {
-                                if (confirm("Sind Sie sicher?")) {
+                                if (confirm(jstreeMsg.confirmdelete)) {
                                     var inst = $.jstree.reference(data.reference);
                                     selected = inst.get_selected(data.reference);
                                     for (var key in selected) {
@@ -105,12 +164,13 @@ if (typeof jsonurl === 'undefined') {
                                                 }
                                             }
                                         });
-                                        
+
                                     }
                                 }
                             }
                         }
                     };
+                    return context_items;
                 }
             },
         }).on("move_node.jstree", function (e, data) {

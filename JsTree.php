@@ -65,14 +65,33 @@ class JsTree extends Widget
 
     /*
      * @var string Column Name for a Type attribute. This can be used to give each
-     * Tree item a different Type which will be used for displaying icons and can 
-     * be also used to set allwoed/disallowed functions (child creation, new nodes, etc.)
-     * This is not implemented at the Moment! 
+     * Tree item a different Type which will be used for displaying icons, prevent 
+     * creation of child elements, etc. See jsTree Docs for explanations. 
      */
-    public $modelPropertyType = NULL;     // Column Name of the type Attribute og Node e. g. 'type'
+    public $modelPropertyType = NULL;
+    
+    /*
+     * @var array Allows to define different Types of Nodes wich can have restrictions
+     * in creating child Elements or which have diffenet icons. See jsTree Docs for 
+     * more informations.
+     */
+    public $jstreeType = [];
+    
+    /*@var array Messages for Userinteractions which can be set to individual Text
+     */
+    public $jstreeMsg = [];
+    
+    /*
+     * @var array Configuration for Context Menu. It is possible to choose which Elements 
+     * should apear in the Menu. Also you can set the Text and Icons of this Elements. 
+     * Create, Edit, Rename and Delete are possible. For Create it is possible to set up
+     * a Submenu which create a Node with a specific Type (See $modelPropertyType)
+     */
+    public $jstreeContextMenue = [];
+    
 
     /*
-     * @var string Text for the initial name of a new node. As a new node will be craeted
+     * @var string Text for the initial name of a new node. As a new node will be created
      * first as a blank entry, this text will be set. Standard will be used if empty 
      */
     public $modelStandardName;          // String for a new Node if not entered by the user
@@ -94,7 +113,7 @@ class JsTree extends Widget
     public $action_default;
 
     public $jstreeIcons=NULL;
-    public $jstreeType;
+    
     public $jstreePlugins;
     /*
      * @var string ID oder Class of the JsTree Div
@@ -138,6 +157,34 @@ class JsTree extends Widget
             ];
         }
         
+        if(empty($this->jstreeMsg)) { 
+            $this->jstreeMsg = [
+                "confirmdelete" => "Löschen? Sine Sie sicher?",
+                "nothere" => "An dieser Stelle leider nicht möglich!",
+            ];
+        }
+        
+        if(empty($this->jstreeContextMenue)) { 
+            $this->jstreeContextMenue = [
+                "edit" => [
+                    "text" => "Bearbeiten",
+                    "icon" => "glyphicon glyphicon-pencil"
+                ],
+                "create" => [
+                    "text" => "Neu",
+                    "icon" => "glyphicon glyphicon-th-list"
+                ],
+                "rename" => [
+                    "text" => "Umbenennen",
+                    "icon" => "glyphicon glyphicon-transfer"
+                ],
+                "remove" => [
+                    "text" => "Löschen",
+                    "icon" => "glyphicon glyphicon-trash"
+                ],
+            ];
+        }
+        
         if (empty($this->jstreeType)) {
             $this->jstreeType = [
                 "#" => [
@@ -153,15 +200,15 @@ class JsTree extends Widget
                     "icon" => "glyphicon glyphicon-list-alt"
                 ],
                 "online" => [
-                    "max_children" => -1,
-                    "max_depth" => -1,
-                    "valid_children" => -1, 
+                    "max_children" => 0,
+                    "max_depth" => 0,
+                    "valid_children" => 0, 
                     "icon" => "glyphicon glyphicon-ok-sign"
                 ],
                 "offline" => [
-                    "max_children" => -1,
-                    "max_depth" => -1,
-                    "valid_children" => -1, 
+                    "max_children" => 0,
+                    "max_depth" => 0,
+                    "valid_children" => 0, 
                     "icon" => "glyphicon glyphicon-minus-sign"
                 ],
             ];
@@ -171,6 +218,8 @@ class JsTree extends Widget
         $this->getView()->registerJs("var jstreetype = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeplugins = " . Json::encode($this->jstreePlugins) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeicons = " . Json::encode($this->jstreeIcons) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var jstreeContextMenue = " . Json::encode($this->jstreeContextMenue) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var jstreeMsg = " . Json::encode($this->jstreeMsg) . ";", View::POS_HEAD);
         
 
         // Use with ActiveRecord Model and all Actions 
