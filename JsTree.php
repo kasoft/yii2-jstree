@@ -172,7 +172,11 @@ class JsTree extends Widget
             "itemcantdel" => "Das Element kann nicht gelöscht werden!",
             "itemnodeletchildren" => "Das Element hat weitere Unterebenen und kann daher nicht gelöscht werden!",
         ];
-        $this->jstreeMsg = array_merge($standardMsg,$this->jstreeMsg);
+        
+        if(!empty($this->jstreeMsg))
+            $this->jstreeMsg = array_merge($standardMsg,$this->jstreeMsg);
+        else 
+            $this->jstreeMsg = $standardMsg;
             
         
         if(empty($this->jstreeContextMenue)) { 
