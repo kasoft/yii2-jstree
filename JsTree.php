@@ -424,10 +424,7 @@ class JsTree extends Widget
             else
                 $parent = "id" . $item->{$this->modelPropertyParentId};
 
-            if ($this->modelPropertyType)
-                $type = $item->{$this->modelPropertyType};
-            else
-                $type = "default";
+            $type = $item->{$this->modelPropertyType}??"default";
 
             $data[] = ['id' => "id" . $item->{$this->modelPropertyId}, 'parent' => $parent, 'type' => $type, 'text' => $name];
             $mixin = self::treeChildren($modelName, $item->{$this->modelPropertyId});
