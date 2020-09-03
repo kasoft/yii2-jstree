@@ -18,19 +18,23 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.9"
+php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.10"
 ```
 
 or add
 
 ```
-"kasoft/yii2-jstree": "1.0.9",
+"kasoft/yii2-jstree": "1.0.10",
 ```
 
 to the require section of your `composer.json` file.
 
 Latest News
 -----
+
+Version 1.0.10
+- Fixed array_merge error
+
 
 Version 1.0.9
 - More Text that could be translated
