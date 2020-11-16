@@ -7,7 +7,8 @@ jsTree for Yii2 is a Extension to display an handle ActiveRecord Models with jsT
 - context menu with update, rename and delete
 - move tree items by drag'n'drop 
 - context submenu with individual node types
-- individual text messages
+- dynamic context menu where items for special types can be removed
+- individual text and context menu messages
 
 
 Installation
@@ -18,19 +19,25 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.10"
+php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.11"
 ```
 
 or add
 
 ```
-"kasoft/yii2-jstree": "1.0.10",
+"kasoft/yii2-jstree": "1.0.11",
 ```
 
 to the require section of your `composer.json` file.
 
 Latest News
 -----
+
+Version 1.0.11
+- New: Duplicate Items in Kontext Menu with Model Duplication
+- Yii2 Error Messages while create or duplicate are transportet to Javascript Alert
+- Remove Contextmenu Items for special Types (e.g. No "delete" for type "page") 
+
 
 Version 1.0.10
 - Fixed array_merge error

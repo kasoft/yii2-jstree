@@ -354,18 +354,34 @@ class JsTree extends Widget
                 }
             }
             if ($operation == "create") {
+                
                 $modelName = $this->modelName;
                 $model = new $modelName;
+                
+                if (!empty($_POST["duplicate"])) {
+                    $duplicate_model = $modelName::findOne($_POST["duplicate"]);
+                    $model->attributes = $duplicate_model->attributes;
+                }
+                
                 $model->{$this->modelPropertyParentId} = $_POST["parent"];
                 $model->{$this->modelPropertyPosition} = $_POST["position"];
-                if ($this->modelPropertyType)
+                if (!empty($this->modelPropertyType) && !empty($_POST["type"]))
                     $model->{$this->modelPropertyType} = $_POST["type"];
-                $model->{$this->modelPropertyName} = $this->modelStandardName;
+                    
+                if (!empty($this->modelPropertyName) && !empty($_POST["text"]))
+                    $model->{$this->modelPropertyName} = $_POST["text"];
+                else 
+                    $model->{$this->modelPropertyName} = $this->modelStandardName;
 
                 if ($model->save())
                     self::sendJSON(array('status' => 1, 'id' => $model->{$this->modelPropertyId}));
-                else
-                    print_r($model->getErrors());
+                else {
+                    $err_txt = ""; 
+                    foreach($model->errors as $err) {
+                        $err_txt.=$err[0];
+                    }
+                    self::sendJSON(array('status' => 0, 'err_msg' => $err_txt));
+                }
             }
             if ($operation == "rename") {
                 $modelName = $this->modelName;

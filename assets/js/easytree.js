@@ -22,7 +22,7 @@ if (typeof jsonurl === 'undefined') {
             "state": { "key": jstreestatekey },
             "plugins": jstreeplugins,
             "contextmenu": {
-                "items": function () {
+                "items": function (data) {
                     var context_items = {};
                     
                     // Edit Menü 
@@ -120,6 +120,21 @@ if (typeof jsonurl === 'undefined') {
                         else context_items.rename.icon = "glyphicon glyphicon-transfer";
                     };
                     
+                    // Duplicate Menu
+                    if ('duplicate' in jstreeContextMenue) {
+                        var duplicate = jstreeContextMenue.duplicate;
+                        context_items.duplicate = {
+                            "label": duplicate.text,
+                             "action": function (data) {
+                                var inst = $.jstree.reference(data.reference),
+                                obj = inst.get_node(data.reference);
+                                obj_parent = inst.get_parent(obj);
+                                var new_node_id = inst.create_node(obj_parent, { type : obj.type, icon: obj.icon, duplicate_id: obj.id.replace("id", ""), text: obj.text+" Kopie" }, "last");
+                                if(new_node_id===false) alert(jstreeMsg.nothere);
+                            }
+                        }
+                    };
+                    
                     // Delete Menu 
                     if ('remove' in jstreeContextMenue) {
                         var remove = jstreeContextMenue.remove;
@@ -159,6 +174,19 @@ if (typeof jsonurl === 'undefined') {
                         if(typeof remove.icon!=="undefined") context_items.remove.icon = remove.icon;
                         else context_items.remove.icon = "glyphicon glyphicon-trash";
                     };
+                    
+                    // check if contect menu elements should be removed because of a special node type
+                    // e.g. create is not allowd for type "page"
+                    var keyitems = Object.keys(context_items);
+                    keyitems.forEach(function(ele,i) {
+                       var check_item = jstreeContextMenue[ele];
+                       if(typeof check_item.disallow_type!=='undefined') {
+                       check_item.disallow_type.forEach(function (element, index) {
+                            if(data.type==element) delete context_items[ele];
+                       });
+                       }
+                    });
+                    
                     return context_items;
                 }
             },
@@ -192,14 +220,16 @@ if (typeof jsonurl === 'undefined') {
                     "id": data.node.id.replace("id", ""),
                     "position": data.position,
                     "type": data.node.type,
+                    "text": data.node.text,
                     "parent": data.parent.replace("id", ""),
+                    "duplicate" : data.node.original.duplicate_id,
                 },
                 success: function (r) {
                     if (r.status) {
                         data.instance.set_id(data.node.id, r.id)
                     } else {
-                        // rollback v3 ??
-                        // $.jstree.rollback(data.rlbk);
+                        if(typeof r.err_msg!=="undefined") alert(r.err_msg);
+                        data.instance.delete_node(data.node);
                     }
                 }
             });
