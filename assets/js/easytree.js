@@ -133,6 +133,8 @@ if (typeof jsonurl === 'undefined') {
                                 if(new_node_id===false) alert(jstreeMsg.nothere);
                             }
                         }
+                        if(typeof duplicate.icon!=="undefined") context_items.duplicate.icon = duplicate.icon;
+                        else context_items.duplicate.icon = "glyphicon glyphicon-duplicate";
                     };
                     
                     // Delete Menu 
