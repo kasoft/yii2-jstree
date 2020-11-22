@@ -33,8 +33,12 @@ to the require section of your `composer.json` file.
 Latest News
 -----
 
-Version 1.0.12
+Version 1.0.13
 - Individuall "New node" Text can be set in standardMsg
+
+
+Version 1.0.12
+- Fixed missing Icon for Duplicate
 
 
 Version 1.0.11
