@@ -33,6 +33,10 @@ to the require section of your `composer.json` file.
 Latest News
 -----
 
+Version 1.0.12
+- Individuall "New node" Text can be set in standardMsg
+
+
 Version 1.0.11
 - New: Duplicate Items in Kontext Menu with Model Duplication
 - Yii2 Error Messages while create or duplicate are transportet to Javascript Alert

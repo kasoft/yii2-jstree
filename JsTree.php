@@ -98,13 +98,6 @@ class JsTree extends Widget
     
 
     /*
-     * @var string Text for the initial name of a new node. As a new node will be created
-     * first as a blank entry, this text will be set. Standard will be used if empty 
-     */
-    public $modelStandardName;          // String for a new Node if not entered by the user
-    // JS Vars
-    
-    /*
      * @var string Name of the Controller used for calling ajax actions.
      */
     public $controller;           // controller name for ajax call "cms"
@@ -171,6 +164,7 @@ class JsTree extends Widget
             "itemnotexisting" => "Das Element existiert nicht!",
             "itemcantdel" => "Das Element kann nicht gelöscht werden!",
             "itemnodeletchildren" => "Das Element hat weitere Unterebenen und kann daher nicht gelöscht werden!",
+            "newNode" => "New Entry"
         ];
         
         if(!empty($this->jstreeMsg))
@@ -277,9 +271,6 @@ class JsTree extends Widget
             if (empty($this->modelPropertyType))
                 $this->modelPropertyType = "type";
 
-            if (empty($this->modelStandardName))
-                $this->modelStandardName = "New Entry";
-            
             // Only Display Tree with loading Data via JSON URL    
         } else {
             $this->getView()->registerJs("var jsonurl = '" . $this->jsonUrl . "';", View::POS_HEAD);
@@ -370,8 +361,8 @@ class JsTree extends Widget
                     
                 if (!empty($this->modelPropertyName) && !empty($_POST["text"]))
                     $model->{$this->modelPropertyName} = $_POST["text"];
-                else 
-                    $model->{$this->modelPropertyName} = $this->modelStandardName;
+                else
+                    $model->{$this->modelPropertyName} = $this->jstreeMsg["newNode"]??"New Entry";
 
                 if ($model->save())
                     self::sendJSON(array('status' => 1, 'id' => $model->{$this->modelPropertyId}));

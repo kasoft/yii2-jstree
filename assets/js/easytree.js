@@ -12,6 +12,9 @@ if (typeof jsonurl === 'undefined') {
             "core": {
                 "animation": 0,
                 "check_callback": true,
+                strings : {
+                    'New node': jstreeMsg.newNode
+                },
                 "themes": {
                     "stripes": true,
                     "icons": jstreeicons
