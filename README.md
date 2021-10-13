@@ -25,13 +25,16 @@ php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.11"
 or add
 
 ```
-"kasoft/yii2-jstree": "1.0.11",
+"kasoft/yii2-jstree": "1.0.14",
 ```
 
 to the require section of your `composer.json` file.
 
 Latest News
 -----
+
+Version 1.0.14
+- Define a id wich node via initialOpenId wich will open after load
 
 Version 1.0.13
 - Individuall "New node" Text can be set in standardMsg

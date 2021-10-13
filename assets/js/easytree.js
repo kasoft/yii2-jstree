@@ -272,6 +272,12 @@ if (typeof jsonurl === 'undefined') {
                     }
                 });
             } 
+        }).on("state_ready.jstree", function(evt, data){
+            if (typeof initialOpenId !== 'undefined') {
+                var selected=$(jstreediv).jstree('get_selected');
+                $(jstreediv).jstree('deselect_node', selected);
+                $(jstreediv).jstree('select_node', 'id'+initialOpenId);
+            }
         });
     });
 

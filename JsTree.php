@@ -131,6 +131,11 @@ class JsTree extends Widget
      * @var array Configure which plugins will be active on an instance. Should be an array of strings, where each element is a plugin name.
      */
     public $plugins = ["checkbox"];
+    
+    /**
+     * @var int Open the Node with this id (e.g. 33)
+     */
+    public $initialOpenId = false;
 
     // NOT IMPLEMENTED, DEVEPOLMENT
     public $showIcons;              // Show Type/Icons in Tree
@@ -229,6 +234,7 @@ class JsTree extends Widget
         $this->getView()->registerJs("var jstreeicons = " . Json::encode($this->jstreeIcons) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeContextMenue = " . Json::encode($this->jstreeContextMenue) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeMsg = " . Json::encode($this->jstreeMsg) . ";", View::POS_HEAD);
+        $this->getView()->registerJs("var initialOpenId = " . Json::encode($this->initialOpenId) . ";", View::POS_HEAD);
         
 
         // Use with ActiveRecord Model and all Actions 
