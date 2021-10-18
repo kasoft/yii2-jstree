@@ -13,7 +13,6 @@
     "require": {
         "php": ">=7.0",
         "yiisoft/yii2": "~2.0.38",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
         "yidas/yii2-bower-asset": "2.0.*"
     },
     "config": {
