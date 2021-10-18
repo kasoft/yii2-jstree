@@ -14,16 +14,6 @@
         "php": ">=7.0",
         "yiisoft/yii2": "~2.0.*"
     },
-    "config": {
-        "process-timeout": 1800,
-        "fxp-asset": {
-            "enabled": false
-        },
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower-asset"
-        }
-    },
     "autoload": {
         "psr-4": {
             "kasoft\\jstree\\": ""
