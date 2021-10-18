@@ -12,8 +12,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "yiisoft/yii2": "~2.0.38",
-        "yidas/yii2-bower-asset": "2.0.*"
+        "yiisoft/yii2": "~2.0.*"
     },
     "config": {
         "process-timeout": 1800,
