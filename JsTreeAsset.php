@@ -17,11 +17,6 @@ class JsTreeAsset extends AssetBundle
     
     public $sourcePath = '@vendor/vakata/jstree/dist';
     
-    public function __construct($config = array()) {
-        $path = Yii::getAlias('@vendor/vakata/jstree/dist');
-        parent::__construct($config);
-    }
-    
     public $js = [
         'jstree.min.js',
     ];
