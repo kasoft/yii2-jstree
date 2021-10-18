@@ -19,7 +19,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.11"
+php composer.phar require --prefer-dist kasoft/yii2-jstree "1.0.14"
 ```
 
 or add
