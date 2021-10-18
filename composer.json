@@ -11,13 +11,19 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "*",
-        "vakata/jstree": "3.3.*"
+        "php": ">=7.0",
+        "yiisoft/yii2": "~2.0.38",
+        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "yidas/yii2-bower-asset": "~2.0.5"
     },
-    "extra": {
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        },
         "asset-installer-paths": {
             "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
+            "bower-asset-library": "vendor/bower-asset"
         }
     },
     "autoload": {
