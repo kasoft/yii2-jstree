@@ -32,6 +32,8 @@ to the require section of your `composer.json` file.
 
 Latest News
 -----
+Version 1.0.15 
+- Removed unnecessary Bootstrap Dependency
 
 Version 1.0.14
 - Define a id wich node via initialOpenId wich will open after load
