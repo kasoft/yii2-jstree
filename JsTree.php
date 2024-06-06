@@ -14,7 +14,7 @@ namespace kasoft\jstree;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\bootstrap\Widget;
+use yii\base\Widget;
 use yii\web\View;
 use yii\web\Response;
 use yii\helpers\Url;
@@ -27,19 +27,19 @@ class JsTree extends Widget
 
     /*
      * @var object the yii2 active record model which should be used. set to false
-     * if the tree should be build from a json url. note: only with a model, the 
+     * if the tree should be build from a json url. note: only with a model, the
      * move, delete, sort, and create functions can be used
      */
     public $modelName = false;
 
     /*
-     * @var string URL that will generate the needed json for buildung the tree. 
+     * @var string URL that will generate the needed json for buildung the tree.
      * Only needed when you DON'T set the modelName Property. Otherwise not needed.
      */
     public $jsonUrl = false;
 
     /*
-     * @var int ID where the Tree should start loading stuff, can be NULL too 
+     * @var int ID where the Tree should start loading stuff, can be NULL too
      */
     public $modelFirstParentId;
 
@@ -65,62 +65,62 @@ class JsTree extends Widget
 
     /*
      * @var string Column Name for a Type attribute. This can be used to give each
-     * Tree item a different Type which will be used for displaying icons, prevent 
-     * creation of child elements, etc. See jsTree Docs for explanations. 
+     * Tree item a different Type which will be used for displaying icons, prevent
+     * creation of child elements, etc. See jsTree Docs for explanations.
      */
     public $modelPropertyType = NULL;
-    
+
     /*
      * @var boolean Disables the ability to cascade deleting. User maybe delete
      * a Tree with mutltiple Elements by accident
      * !!! NOT IMPLEMENTED YET - Cascading is not possible !!!!!
      */
     public $noCascadingDelete = true;
-    
+
     /*
      * @var array Allows to define different Types of Nodes wich can have restrictions
-     * in creating child Elements or which have diffenet icons. See jsTree Docs for 
+     * in creating child Elements or which have diffenet icons. See jsTree Docs for
      * more informations.
      */
     public $jstreeType = [];
-    
+
     /*@var array Messages for Userinteractions which can be set to individual Text
      */
     public $jstreeMsg = NULL;
-    
+
     /*
-     * @var array Configuration for Context Menu. It is possible to choose which Elements 
-     * should apear in the Menu. Also you can set the Text and Icons of this Elements. 
+     * @var array Configuration for Context Menu. It is possible to choose which Elements
+     * should apear in the Menu. Also you can set the Text and Icons of this Elements.
      * Create, Edit, Rename and Delete are possible. For Create it is possible to set up
      * a Submenu which create a Node with a specific Type (See $modelPropertyType)
      */
     public $jstreeContextMenue = [];
-    
+
 
     /*
      * @var string Name of the Controller used for calling ajax actions.
      */
     public $controller;           // controller name for ajax call "cms"
-    
+
     /*
      * @var string Name of the Action that should be called when node is clicked
      */
     public $action_click;
-    
+
     /*
      * @var string Default Action for Tree (e.g. index)
      */
     public $action_default;
 
     public $jstreeIcons=NULL;
-    
+
     public $jstreePlugins;
     /*
      * @var string ID oder Class of the JsTree Div
      * If not set, it will become #jstree
      */
     public $jstreeDiv;
-    
+
     /*
      * With this state key, jstree sets a cookie to remember the state of the
      * tree (e.g. which bracnhes are open, etc.)
@@ -131,7 +131,7 @@ class JsTree extends Widget
      * @var array Configure which plugins will be active on an instance. Should be an array of strings, where each element is a plugin name.
      */
     public $plugins = ["checkbox"];
-    
+
     /**
      * @var int Open the Node with this id (e.g. 33)
      */
@@ -149,20 +149,20 @@ class JsTree extends Widget
     public function init() {
         parent::init();
         $this->registerAssets();
-        
-        if (empty($this->jstreeDiv)) 
+
+        if (empty($this->jstreeDiv))
             $this->jstreeDiv  = "#jstree";
-        
+
         if ($this->jstreeIcons===NULL)
             $this->jstreeIcons = true;
-        
+
         if (empty($this->jstreePlugins)) {
             $this->jstreePlugins = [
                 "contextmenu", "dnd", "search","state", "types", "wholerow", "changed"
             ];
         }
-        
-            
+
+
         $standardMsg = [
             "confirmdelete" => "Löschen? Sine Sie sicher?",
             "nothere" => "An dieser Stelle leider nicht möglich!",
@@ -171,14 +171,14 @@ class JsTree extends Widget
             "itemnodeletchildren" => "Das Element hat weitere Unterebenen und kann daher nicht gelöscht werden!",
             "newNode" => "New Entry"
         ];
-        
+
         if(!empty($this->jstreeMsg))
             $this->jstreeMsg = array_merge($standardMsg,$this->jstreeMsg);
-        else 
+        else
             $this->jstreeMsg = $standardMsg;
-            
-        
-        if(empty($this->jstreeContextMenue)) { 
+
+
+        if(empty($this->jstreeContextMenue)) {
             $this->jstreeContextMenue = [
                 "edit" => [
                     "text" => "Bearbeiten",
@@ -198,36 +198,36 @@ class JsTree extends Widget
                 ],
             ];
         }
-        
+
         if (empty($this->jstreeType)) {
             $this->jstreeType = [
                 "#" => [
                     "max_children" => -1,
                     "max_depth" => -1,
-                    "valid_children" => -1, 
+                    "valid_children" => -1,
                     "icon" => "glyphicon glyphicon-th-list"
                 ],
                 "default" => [
                     "max_children" => -1,
                     "max_depth" => -1,
-                    "valid_children" => -1, 
+                    "valid_children" => -1,
                     "icon" => "glyphicon glyphicon-list-alt"
                 ],
                 "online" => [
                     "max_children" => 0,
                     "max_depth" => 0,
-                    "valid_children" => 0, 
+                    "valid_children" => 0,
                     "icon" => "glyphicon glyphicon-ok-sign"
                 ],
                 "offline" => [
                     "max_children" => 0,
                     "max_depth" => 0,
-                    "valid_children" => 0, 
+                    "valid_children" => 0,
                     "icon" => "glyphicon glyphicon-minus-sign"
                 ],
             ];
         }
-        
+
         $this->getView()->registerJs("var jstreediv = '" . $this->jstreeDiv . "';", View::POS_HEAD);
         $this->getView()->registerJs("var jstreetype = " . Json::encode($this->jstreeType) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeplugins = " . Json::encode($this->jstreePlugins) . ";", View::POS_HEAD);
@@ -235,19 +235,19 @@ class JsTree extends Widget
         $this->getView()->registerJs("var jstreeContextMenue = " . Json::encode($this->jstreeContextMenue) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var jstreeMsg = " . Json::encode($this->jstreeMsg) . ";", View::POS_HEAD);
         $this->getView()->registerJs("var initialOpenId = " . Json::encode($this->initialOpenId) . ";", View::POS_HEAD);
-        
 
-        // Use with ActiveRecord Model and all Actions 
+
+        // Use with ActiveRecord Model and all Actions
         if ($this->modelName) {
 
             $this->controller = Yii::$app->controller->id;
-            
+
             if (empty($this->action_default))
                 $this->action_default = "index";
-            
+
             if (empty($this->action_click))
                 $this->action_click = "update";
-            
+
             // Create Needed URLs for JS
             // e.g. /index.php?r=site/index
             // or /site/index
@@ -258,7 +258,7 @@ class JsTree extends Widget
             if(empty($this->jstreestatekey))
                 $this->jstreestatekey = $this->controller;
             $this->getView()->registerJs("var jstreestatekey = " . Json::encode($this->jstreestatekey) . ";", View::POS_HEAD);
-            
+
             if (!isset($this->showIcons))
                 $this->showIcons = true;
 
@@ -273,19 +273,19 @@ class JsTree extends Widget
 
             if (empty($this->modelPropertyPosition))
                 $this->modelPropertyPosition = "sort";
-            
+
             if (empty($this->modelPropertyType))
                 $this->modelPropertyType = "type";
 
-            // Only Display Tree with loading Data via JSON URL    
+            // Only Display Tree with loading Data via JSON URL
         } else {
             $this->getView()->registerJs("var jsonurl = '" . $this->jsonUrl . "';", View::POS_HEAD);
         }
-        
+
         if (isset($_REQUEST["easytree"])) {
             $this->treeaction();
         }
-        
+
     }
 
     public function run() {
@@ -299,9 +299,9 @@ class JsTree extends Widget
         $view = $this->getView();
         JsTreeAsset::register($view);
     }
-    
 
-    // AJAX call for 
+
+    // AJAX call for
     // -> load: return full json for tree init
     // -> move: change parent id and position of node
     /*
@@ -313,7 +313,7 @@ class JsTree extends Widget
      * delete: delete node
      */
     public function treeaction() {
-        
+
         if (isset($_REQUEST["easytree"])) {
             $operation = $_REQUEST["easytree"];
             if ($operation == "fulljson")
@@ -332,7 +332,7 @@ class JsTree extends Widget
                             ->orderBy($this->modelPropertyPosition)
                             ->all();
 
-                    // If moved to top 
+                    // If moved to top
                     if ($_POST["position"] != 0)
                         $pos = 0;
                     else
@@ -351,20 +351,20 @@ class JsTree extends Widget
                 }
             }
             if ($operation == "create") {
-                
+
                 $modelName = $this->modelName;
                 $model = new $modelName;
-                
+
                 if (!empty($_POST["duplicate"])) {
                     $duplicate_model = $modelName::findOne($_POST["duplicate"]);
                     $model->attributes = $duplicate_model->attributes;
                 }
-                
+
                 $model->{$this->modelPropertyParentId} = $_POST["parent"];
                 $model->{$this->modelPropertyPosition} = $_POST["position"];
                 if (!empty($this->modelPropertyType) && !empty($_POST["type"]))
                     $model->{$this->modelPropertyType} = $_POST["type"];
-                    
+
                 if (!empty($this->modelPropertyName) && !empty($_POST["text"]))
                     $model->{$this->modelPropertyName} = $_POST["text"];
                 else
@@ -373,7 +373,7 @@ class JsTree extends Widget
                 if ($model->save())
                     self::sendJSON(array('status' => 1, 'id' => $model->{$this->modelPropertyId}));
                 else {
-                    $err_txt = ""; 
+                    $err_txt = "";
                     foreach($model->errors as $err) {
                         $err_txt.=$err[0];
                     }

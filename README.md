@@ -32,7 +32,7 @@ to the require section of your `composer.json` file.
 
 Latest News
 -----
-Version 1.0.15 
+Version 1.0.16 
 - Removed unnecessary Bootstrap Dependency
 
 Version 1.0.14

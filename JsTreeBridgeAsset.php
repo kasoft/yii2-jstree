@@ -18,7 +18,6 @@ class JsTreeBridgeAsset extends AssetBundle
         'js/easytree.js'
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        'yii\web\YiiAsset'
     ];
 }
